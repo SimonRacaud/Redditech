@@ -15,6 +15,12 @@ import android.net.http.SslError
 
 import android.webkit.SslErrorHandler
 import android.webkit.WebViewClient
+import android.R.string
+
+import java.util.Dictionary
+
+
+
 
 
 
@@ -47,11 +53,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         val myWebView = findViewById<WebView>(R.id.webview);
+
+        //headers.Add("Authorization", "Bearer");
         myWebView.settings.allowContentAccess = true;
         myWebView.settings.allowFileAccess = true;
+        myWebView.settings.javaScriptEnabled = true;
         myWebView.webViewClient = WebViewClient();
-        //myWebView.loadUrl("https://www.reddit.com/api/v1/authorize?client_id=e14xOSvlU0BhmAuhho8z3Q&response_type=token&state=foobarjaaj&redirect_uri=https://localhost:8080/callback&scope=identity%20edit");
-        myWebView.loadUrl("https://www.google.com");
+        myWebView.loadUrl("https://www.reddit.com/api/v1/authorize?client_id=e14xOSvlU0BhmAuhho8z3Q&response_type=token&state=foobarjaaj&redirect_uri=https://localhost:8080/callback&scope=identity%20edit");
+        //myWebView.loadUrl("https://www.google.com");
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
