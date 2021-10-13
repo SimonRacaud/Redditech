@@ -1,1 +1,5 @@
 # REDDITECH
+
+## BUILD
+
+> ./gradlew build
