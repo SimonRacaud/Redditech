@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Redditech</string>
+    <string name="auth_url">https://www.reddit.com/api/v1/authorize?client_id=e14xOSvlU0BhmAuhho8z3Q&amp;response_type=token&amp;state=foobarjaaj&amp;redirect_uri=https://localhost:8080/callback&amp;scope=identity%20edit</string>
+</resources>
