@@ -7,9 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import my.epi.redditech.LoginWebViewClient
+import my.epi.redditech.MainActivity
 import my.epi.redditech.R
 
-class LoginFragment : Fragment() {
+class LoginFragment(val context: MainActivity) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +28,6 @@ class LoginFragment : Fragment() {
         myWebView?.settings?.allowContentAccess = true
         myWebView?.settings?.allowFileAccess = true
         myWebView?.settings?.javaScriptEnabled = true
-        myWebView?.webViewClient = LoginWebViewClient(url)
+        myWebView?.webViewClient = LoginWebViewClient(url, context)
     }
 }

@@ -1,11 +1,12 @@
 package my.epi.redditech
 
+import android.content.Context
 import android.net.Uri
 import android.text.TextUtils
 import android.webkit.WebView
 import android.webkit.WebViewClient
 
-internal class LoginWebViewClient(val primaryUrl: String) : WebViewClient() {
+internal class LoginWebViewClient(val primaryUrl: String, val context: MainActivity) : WebViewClient() {
     private var token: String = ""
 
     override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
@@ -36,6 +37,12 @@ internal class LoginWebViewClient(val primaryUrl: String) : WebViewClient() {
             println("token $token") // Debug : We have the token
         } else {
             println("token not found")
+        }
+        /// Save token in preferences
+        val preferences = context.getPreferences(Context.MODE_PRIVATE)
+        with (preferences.edit()) {
+            putString("AUTH_TOKEN", "$token")
+            apply()
         }
         return true
     }
