@@ -10,7 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.MenuItem
 import android.view.Menu
 import android.webkit.WebView
-import com.example.redditech.databinding.ActivityMainBinding
+import com.epi.redditech.databinding.ActivityMainBinding
 import android.net.http.SslError
 
 import android.webkit.SslErrorHandler
