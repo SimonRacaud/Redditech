@@ -17,7 +17,7 @@
     <style name="DefaultTextStyle">
         <item name="android:textColor">@color/lightGray</item>
         <item name="android:textSize">18sp</item>
-        <item name="fontFamily">@font/KanitSemiBold</item>
+        <item name="fontFamily">@font/kanit_semi_bold</item>
     </style>
 
     <style name="SubtitleTextStyle" parent="DefaultTextStyle">

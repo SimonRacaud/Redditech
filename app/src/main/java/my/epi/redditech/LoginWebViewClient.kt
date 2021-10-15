@@ -1,12 +1,15 @@
 package my.epi.redditech
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.text.TextUtils
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import my.epi.redditech.activity.AuthActivity
+import my.epi.redditech.activity.StartActivity
 
-internal class LoginWebViewClient(val primaryUrl: String, val context: MainActivity) : WebViewClient() {
+internal class LoginWebViewClient(val primaryUrl: String, val context: AuthActivity) : WebViewClient() {
     private var token: String = ""
 
     override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
@@ -14,11 +17,11 @@ internal class LoginWebViewClient(val primaryUrl: String, val context: MainActiv
 
         println(uri.host + " " + uri.path)
         println("URL = $url")
+
         if (uri.host == "www.reddit.com" && uri.path != null
             && (uri.path!!.startsWith("/api", false)
                     || uri.path!!.startsWith("/login", false))) {
-            // This is my web site, so do not override; let my WebView load the page
-            return false
+            return false // This is my web site, so do not override; let my WebView load the page
         } else if (uri.host == "www.reddit.com" && uri?.path == "/") {
             view?.loadUrl(primaryUrl) // go back to authorization page after login
         }
@@ -34,15 +37,10 @@ internal class LoginWebViewClient(val primaryUrl: String, val context: MainActiv
             }
         }
         if (token != "") {
-            println("token $token") // Debug : We have the token
+            println("Log: token $token") // Debug : We have the token
+            context.applyLogin(token)
         } else {
-            println("token not found")
-        }
-        /// Save token in preferences
-        val preferences = context.getPreferences(Context.MODE_PRIVATE)
-        with (preferences.edit()) {
-            putString("AUTH_TOKEN", "$token")
-            apply()
+            println("Log: token not found")
         }
         return true
     }
