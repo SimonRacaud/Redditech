@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Redditech">
         <activity
+            android:name=".activity.AuthActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.StartActivity"
             android:exported="false" />
         <activity
