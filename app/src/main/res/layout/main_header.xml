@@ -6,7 +6,8 @@
     android:orientation="horizontal"
     android:gravity="center"
     android:paddingTop="5dp"
-    android:paddingLeft="5dp">
+    android:paddingLeft="5dp"
+    android:paddingBottom="5dp">
 
     <ImageView
         android:id="@+id/imageView"
