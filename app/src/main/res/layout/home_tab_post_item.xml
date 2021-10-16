@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imageViewPostIcon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/reddit_icon_background" />
