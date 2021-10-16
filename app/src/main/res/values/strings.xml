@@ -4,6 +4,7 @@
 
     <!-- TO FILL : examples -->
     <string name="home_page_title">Redditech</string>
+    <string name="search_subreddit">Search subreddit</string>
     <string-array name="home_page_list">
         <item>My Item 1</item>
     </string-array>

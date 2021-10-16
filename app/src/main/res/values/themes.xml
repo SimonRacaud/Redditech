@@ -27,4 +27,8 @@
     <style name="TitleTextStyle" parent="SubtitleTextStyle">
         <item name="android:textSize">24sp</item>
     </style>
+
+    <style name="DescriptionStyle" parent="DefaultTextStyle">
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>
