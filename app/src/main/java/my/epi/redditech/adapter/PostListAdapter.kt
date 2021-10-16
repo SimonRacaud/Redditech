@@ -1,6 +1,7 @@
 package my.epi.redditech.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import my.epi.redditech.R
+import my.epi.redditech.activity.HomeActivity
 import my.epi.redditech.model.PostModel
 
 /**
@@ -42,6 +44,15 @@ class PostListAdapter(
         }
         holder.title.text = current.title
         holder.content.text = current.description
+
+        holder.title.setOnClickListener {
+            val intent = Intent(context, HomeActivity::class.java) // TODO : Go to post page
+            context?.startActivity(intent)
+        }
+        holder.icon.setOnClickListener {
+            val intent = Intent(context, HomeActivity::class.java) // TODO : Go to post page
+            context?.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int = itemList.size
