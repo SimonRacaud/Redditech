@@ -8,8 +8,9 @@
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/drawable/reddit.xml" value="0.3765625" />
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/drawable/reddit_icon_background.xml" value="0.3765625" />
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/activity_auth.xml" value="0.25" />
-        <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/activity_home.xml" value="0.29528985507246375" />
+        <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/activity_home.xml" value="0.33" />
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/activity_settings.xml" value="0.36041666666666666" />
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/activity_start.xml" value="0.36041666666666666" />
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/home_fragment.xml" value="0.36041666666666666" />
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/home_post_tab_fragment.xml" value="0.36041666666666666" />
@@ -21,6 +22,7 @@
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/main_header.xml" value="0.36041666666666666" />
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/post_fragment_item.xml" value="0.36041666666666666" />
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/post_fragment_item_list.xml" value="0.3453125" />
+        <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/mipmap-anydpi-v26/reddit_icon.xml" value="0.3765625" />
       </map>
     </option>
   </component>
