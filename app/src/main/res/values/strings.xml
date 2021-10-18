@@ -25,4 +25,8 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="home_search_button">Search for subreddits</string>
+    <string name="nb_subscriber_label">subscribers</string>
+    <string name="subreddit_header_def_nb_subscribers">0</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

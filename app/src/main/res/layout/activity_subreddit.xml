@@ -4,11 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.SubredditActivity">
+    tools:context=".activity.SubredditActivity"
+    >
+
+    <!-- SUBREDDIT HOME PAGE -->
 
     <include
-        android:id="@+id/include4"
-        layout="@layout/header_subreddit" />
+        android:id="@+id/header"
+        layout="@layout/header_subreddit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/my_info"
+        layout="@layout/header_info_subreddit"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -19,6 +32,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include4" />
+        app:layout_constraintTop_toBottomOf="@+id/my_info" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -31,7 +31,7 @@ class HomePostTabFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.adapter = PostListAdapter(this.context, postList, R.layout.home_tab_post_item)
 
-        return view;
+        return view
     }
 
 }
