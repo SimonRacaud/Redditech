@@ -28,7 +28,7 @@ class AuthActivity : AppCompatActivity() {
 
     fun applyLogin(token: String) {
         val intent = Intent(this, HomeActivity::class.java)
-
+        finish()
         startActivity(intent)
 
         /// TODO : we have to token. Now, what do we do with it ?
