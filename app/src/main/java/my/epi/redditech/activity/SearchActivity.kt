@@ -1,6 +1,5 @@
 package my.epi.redditech.activity
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -18,8 +17,7 @@ class SearchActivity : AppCompatActivity() {
 
         val button = findViewById<Button>(R.id.back_button)
         button.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
         // SEARCH BAR

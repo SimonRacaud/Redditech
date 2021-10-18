@@ -3,6 +3,7 @@ package my.epi.redditech.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.Spinner
 import androidx.recyclerview.widget.RecyclerView
 import my.epi.redditech.R
@@ -13,6 +14,12 @@ class SubredditActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_subreddit)
+
+        /// BACK BUTTON
+        val button = findViewById<Button>(R.id.back_button)
+        button.setOnClickListener {
+            finish()
+        }
 
         // TODO : debug data (api call)
         val postList = arrayListOf<PostItemModel>()
