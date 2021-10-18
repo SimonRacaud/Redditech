@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.webkit.WebView
 import my.epi.redditech.LoginWebViewClient
-import my.epi.redditech.MainActivity
 import my.epi.redditech.R
 
 class AuthActivity : AppCompatActivity() {
@@ -28,7 +27,7 @@ class AuthActivity : AppCompatActivity() {
     }
 
     fun applyLogin(token: String) {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, HomeActivity::class.java)
 
         startActivity(intent)
 
