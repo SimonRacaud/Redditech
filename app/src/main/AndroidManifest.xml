@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Redditech">
         <activity
-            android:name=".activity.PostActivity"
+            android:name=".activity.PostPageActivity"
             android:exported="false" />
         <activity
             android:name=".activity.SubredditActivity"
