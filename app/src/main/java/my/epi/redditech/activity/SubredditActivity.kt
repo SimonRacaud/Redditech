@@ -2,6 +2,8 @@ package my.epi.redditech.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.recyclerview.widget.RecyclerView
 import my.epi.redditech.R
 import my.epi.redditech.adapter.PostListAdapter
@@ -20,5 +22,16 @@ class SubredditActivity : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.adapter = PostListAdapter(this.applicationContext, postList, R.layout.home_tab_post_item)
+
+        // Filters selector creation
+        val spinner: Spinner = findViewById(R.id.filter_selector)
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.filter_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = adapter
+        }
     }
 }
