@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import my.epi.redditech.R
-import my.epi.redditech.activity.HomeActivity
+import my.epi.redditech.activity.PostPageActivity
 import my.epi.redditech.model.PostItemModel
 
 /**
@@ -46,11 +46,11 @@ class PostListAdapter(
         holder.content.text = current.description
 
         holder.title.setOnClickListener {
-            val intent = Intent(context, HomeActivity::class.java) // TODO : Go to post page
+            val intent = Intent(context, PostPageActivity::class.java) // TODO : Go to post page
             context?.startActivity(intent)
         }
         holder.icon.setOnClickListener {
-            val intent = Intent(context, HomeActivity::class.java) // TODO : Go to post page
+            val intent = Intent(context, PostPageActivity::class.java) // TODO : Go to post page
             context?.startActivity(intent)
         }
     }

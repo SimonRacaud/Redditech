@@ -7,6 +7,26 @@
     tools:context=".activity.PostPageActivity">
 
     <include
-        android:id="@+id/include5"
+        android:id="@+id/header"
         layout="@layout/header_subreddit" />
+
+    <include
+        android:id="@+id/information"
+        layout="@layout/header_info_post"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/header" />
+
+    <!-- INSERT POST CONTENT HERE -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:layout_marginTop="15dp"
+        android:name="my.epi.redditech.fragment.PostContentFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/information" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

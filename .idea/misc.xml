@@ -13,10 +13,14 @@
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/activity_post.xml" value="0.36041666666666666" />
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/activity_post_page.xml" value="0.36041666666666666" />
-        <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/activity_search.xml" value="0.36041666666666666" />
+        <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/activity_search.xml" value="0.33" />
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/activity_settings.xml" value="0.36041666666666666" />
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/activity_start.xml" value="0.36041666666666666" />
-        <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/activity_subreddit.xml" value="0.75" />
+        <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/activity_subreddit.xml" value="0.33" />
+        <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/fragment_post_content.xml" value="0.36041666666666666" />
+        <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/fragment_subreddit_home_post_list.xml" value="0.36041666666666666" />
+        <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/header_info_post.xml" value="0.36041666666666666" />
+        <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/header_info_subreddit.xml" value="0.33" />
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/header_subreddit.xml" value="0.5" />
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/home_fragment.xml" value="0.36041666666666666" />
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/home_post_tab_fragment.xml" value="0.36041666666666666" />
@@ -24,12 +28,14 @@
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/home_tab_fragment.xml" value="0.36041666666666666" />
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/home_tab_post_item.xml" value="0.36041666666666666" />
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/home_tab_subreddit_item.xml" value="0.36041666666666666" />
+        <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/list_filters.xml" value="0.36041666666666666" />
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/login.xml" value="0.25" />
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/login_fragment.xml" value="0.20104166666666667" />
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/main_header.xml" value="0.36041666666666666" />
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/post_fragment_item.xml" value="0.36041666666666666" />
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/post_fragment_item_list.xml" value="0.3453125" />
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/settings_activity.xml" value="0.36041666666666666" />
+        <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/layout/sub_header.xml" value="0.22" />
         <entry key="../../../../../media/work/2_CURRENT/B-DEV-501-REN-5-1-redditech-simon.racaud/app/src/main/res/mipmap-anydpi-v26/reddit_icon.xml" value="0.3765625" />
       </map>
     </option>

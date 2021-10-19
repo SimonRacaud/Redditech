@@ -8,16 +8,8 @@
 
     <include
         android:id="@+id/include3"
-        layout="@layout/main_header" />
-
-    <Button
-        android:id="@+id/back_button"
-        android:layout_width="40dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/ic_baseline_arrow_forward_24"
-        app:layout_constraintEnd_toEndOf="@+id/include3"
+        layout="@layout/sub_header"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <SearchView
@@ -25,7 +17,6 @@
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:layout_marginTop="20dp"
-        android:background="@color/darkGreen"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
