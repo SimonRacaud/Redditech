@@ -17,14 +17,16 @@ data class PostModel(
     val selftext: String, // text content
     val selftext_html: String, // text content html
 
-    val subreddit: String, // type : "Advertisesub" | "subreddit"
+    val subreddit: String, // type : "Advertisesub" | <subreddit name>
     val subreddit_id: String,
     val subreddit_name_prefixed: String, // parent name
     val subreddit_subscribers: Int,
 
-    val thumbnail: String, // "self" | "default" | "nsfw"
+    val thumbnail: String, // "self" | "default" | "nsfw" | <url>
     val thumbnail_height: Int?,
     val thumbnail_width: Int?,
+
+    val url_overridden_by_dest: String?, // redirect url
 
     val view_count: Int?,
     val visited: Boolean,
