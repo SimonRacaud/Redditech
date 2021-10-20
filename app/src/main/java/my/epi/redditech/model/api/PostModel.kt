@@ -12,7 +12,7 @@ data class PostModel(
     val permalink: String, // url (begin by /r/...)
     val url: String, // full http url
 
-    val preview: PreviewModel, // post content (images, videos)
+    val preview: PreviewModel?, // post content (images, videos)
 
     val selftext: String, // text content
     val selftext_html: String, // text content html
