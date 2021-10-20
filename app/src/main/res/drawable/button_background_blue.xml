@@ -3,20 +3,20 @@
         <item android:state_pressed="true" >
             <shape android:shape="rectangle"  >
                 <solid android:color="@color/secondary_extra_lite"/>
-                <corners android:radius="100dp" />
+                <corners android:radius="50dp" />
             </shape>
         </item>
         <item android:state_hovered="true">
             <shape android:shape="rectangle"  >
                 <solid android:color="@color/secondary_lite"/>
-                <corners android:radius="100dp" />
+                <corners android:radius="50dp" />
             </shape>
         </item>
         <item >
             <shape android:shape="rectangle"  >
                 <padding android:left="@dimen/button_padding" android:right="@dimen/button_padding" />
                 <solid android:color="@color/secondary"/>
-                <corners android:radius="100dp" />
+                <corners android:radius="50dp" />
             </shape>
         </item>
 </selector>

@@ -11,7 +11,7 @@
         style="@style/SubtitleTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Subreddit Title"
+        android:text="r/subreddit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="5dp"
@@ -33,10 +33,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
+            style="@style/DescriptionStyle"
             android:text="@string/subreddit_header_def_nb_subscribers" />
 
         <TextView
             android:layout_width="wrap_content"
+            style="@style/DescriptionStyle"
             android:layout_height="wrap_content"
             android:text="@string/nb_subscriber_label" />
     </LinearLayout>
@@ -46,7 +48,8 @@
         style="@style/DefaultTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Author"
+        android:layout_marginTop="8dp"
+        android:text="Posted by u/simon"
         app:layout_constraintStart_toStartOf="@+id/subreddit_title"
         app:layout_constraintTop_toBottomOf="@+id/subreddit_title" />
 

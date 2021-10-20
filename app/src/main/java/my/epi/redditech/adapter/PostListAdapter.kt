@@ -2,6 +2,7 @@ package my.epi.redditech.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -47,10 +48,12 @@ class PostListAdapter(
 
         holder.title.setOnClickListener {
             val intent = Intent(context, PostPageActivity::class.java) // TODO : Go to post page
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context?.startActivity(intent)
         }
         holder.icon.setOnClickListener {
             val intent = Intent(context, PostPageActivity::class.java) // TODO : Go to post page
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context?.startActivity(intent)
         }
     }

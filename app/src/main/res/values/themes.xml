@@ -57,6 +57,7 @@
         <item name="android:fontFamily">@font/ibmplexsans_semibold</item>
         <item name="fontFamily">@font/ibmplexsans_semibold</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">11sp</item>
     </style>
 
     <style name="SecondaryButtonStyle" parent="ButtonTextStyle">
