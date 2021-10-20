@@ -5,6 +5,4 @@ data class ListBody (
     val before: String?,            // Previous page ('name' row)
     val children: List<ItemModel>,  // List items
     val dist: Int,                  // List size
-    val geo_filter: String,
-    val modhash: String?
 )
