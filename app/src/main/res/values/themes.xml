@@ -32,13 +32,25 @@
         <item name="android:textSize">28sp</item>
     </style>
 
+    <style name="SmallTitleTextStyle" parent="TitleTextStyle">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="MiniBlackStyle" parent="DefaultTextStyle">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+    <style name="MiniGrayStyle" parent="MiniBlackStyle">
+        <item name="android:textColor">@color/sub_title</item>
+    </style>
+
     <style name="SubtitleTextStyle" parent="TitleTextStyle">
         <item name="android:textColor">@color/sub_title</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="DescriptionStyle" parent="DefaultTextStyle">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">13sp</item>
     </style>
 
     <style name="ButtonTextStyle" parent="DefaultTextStyle">

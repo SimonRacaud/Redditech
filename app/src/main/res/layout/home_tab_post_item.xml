@@ -6,10 +6,10 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="5dp"
+        android:id="@+id/postIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         app:cardCornerRadius="50dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,28 +24,42 @@
 
     <TextView
         android:id="@+id/title"
-        style="@style/SubtitleTextStyle"
-        android:layout_width="wrap_content"
+        style="@style/MiniBlackStyle"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:text="Title title title title"
+        android:layout_marginStart="10dp"
+        android:text="r/unixporn"
         android:textAppearance="?attr/textAppearanceListItem"
-        app:layout_constraintBottom_toBottomOf="@+id/cardView"
-        app:layout_constraintLeft_toRightOf="@id/cardView"
-        app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toTopOf="@+id/cardView" />
+        app:layout_constraintBottom_toBottomOf="@+id/postIcon"
+        app:layout_constraintStart_toEndOf="@+id/postIcon"
+        app:layout_constraintTop_toTopOf="@+id/postIcon" />
+
+    <TextView
+        android:id="@+id/author"
+        style="@style/MiniGrayStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:breakStrategy="simple"
+        android:layout_marginStart="6dp"
+        android:text="Posted by u/simon"
+        android:textAppearance="?attr/textAppearanceListItem"
+        app:layout_constraintBottom_toBottomOf="@+id/postIcon"
+        app:layout_constraintStart_toEndOf="@+id/title"
+        app:layout_constraintTop_toTopOf="@+id/postIcon" />
 
     <TextView
         android:id="@+id/content"
         style="@style/DescriptionStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxHeight="50dp"
-        android:layout_marginStart="13dp"
-        android:layout_marginEnd="13dp"
-        android:text="content content content content content content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp"
+        android:text="[KDE Plasma] My first time ricing myself and I decided on this box style inspired by another post."
         android:textAppearance="?attr/textAppearanceListItem"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+        app:layout_constraintTop_toBottomOf="@+id/postIcon" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

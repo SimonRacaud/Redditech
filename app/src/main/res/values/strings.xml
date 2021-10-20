@@ -35,10 +35,10 @@
     <string name="home_tab_subreddit">My subreddits</string>
 
     <string-array name="filter_array">
-        <item>Best</item>
-        <item>Hot</item>
-        <item>New</item>
-        <item>Top</item>
-        <item>Random</item>
+        <item>💯 Best</item>
+        <item>🔥 Hot</item>
+        <item>🏁 New</item>
+        <item>💘 Top</item>
+        <item>🔀 Random</item>
     </string-array>
 </resources>
