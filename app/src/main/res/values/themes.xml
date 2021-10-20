@@ -15,20 +15,39 @@
     </style>
 
     <style name="DefaultTextStyle">
-        <item name="android:textColor">@color/lightGray</item>
-        <item name="android:textSize">18sp</item>
-        <item name="fontFamily">@font/kanit_semi_bold</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/notosans_regular</item>
     </style>
 
-    <style name="SubtitleTextStyle" parent="DefaultTextStyle">
-        <item name="android:textColor">@color/darkGray</item>
+    <style name="LogoStyle">
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/vag_roundedbt_regular</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
-    <style name="TitleTextStyle" parent="SubtitleTextStyle">
+    <style name="TitleTextStyle">
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/ibmplexsans_regular</item>
+        <item name="android:textSize">28sp</item>
+    </style>
+
+    <style name="SubtitleTextStyle" parent="TitleTextStyle">
+        <item name="android:textColor">@color/sub_title</item>
         <item name="android:textSize">24sp</item>
     </style>
 
     <style name="DescriptionStyle" parent="DefaultTextStyle">
         <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="ButtonTextStyle" parent="DefaultTextStyle">
+        <item name="android:fontFamily">@font/ibmplexsans_semibold</item>
+        <item name="fontFamily">@font/ibmplexsans_semibold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="SecondaryButtonStyle" parent="ButtonTextStyle">
+        <item name="android:backgroundTint">@color/secondary</item>
     </style>
 </resources>

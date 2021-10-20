@@ -24,7 +24,7 @@
         android:layout_height="45dp"
         android:layout_weight="1"
         android:text="@string/app_title"
-        style="@style/TitleTextStyle"
+        style="@style/LogoStyle"
         android:gravity="center_vertical"
         />
 
