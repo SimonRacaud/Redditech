@@ -14,4 +14,7 @@ interface ApiReddit {
 
     @GET("/subreddits/mine/subscriber")
     suspend fun getSubscribeSubreddit(): Response<ListModel<SubredditModel>>
+
+    @GET("/{sort}")
+    suspend fun getPostsFeed(@Path("sort") sort : String): Response<ListModel<PostModel>>
 }
