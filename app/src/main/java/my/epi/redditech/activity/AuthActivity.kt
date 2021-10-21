@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.webkit.WebView
 import my.epi.redditech.LoginWebViewClient
 import my.epi.redditech.R
+import my.epi.redditech.network.ApiClient
 
 class AuthActivity : AppCompatActivity() {
 
@@ -33,10 +34,6 @@ class AuthActivity : AppCompatActivity() {
 
         /// TODO : we have to token. Now, what do we do with it ?
         /// Save token in preferences
-//        val preferences = context.getPreferences(Context.MODE_PRIVATE)
-//        with (preferences.edit()) {
-//            putString("AUTH_TOKEN", "$token")
-//            apply()
-//        }
+        ApiClient.token = token;
     }
 }
