@@ -4,6 +4,7 @@ data class UserModel(
     val name: String,           // username
     val id: String,             // unique id
     val oauth_client_id: String, // useful ?
+    val description: String,
 
     val icon_img: String,       // icon
     val snoovatar_img: String,  // icon url
