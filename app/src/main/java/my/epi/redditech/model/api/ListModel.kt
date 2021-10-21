@@ -1,6 +1,6 @@
 package my.epi.redditech.model.api
 
-data class ListModel (
-    val `data`: ListBody,
+data class ListModel<T> (
+    val `data`: ListBody<T>,
     val kind: String // == "Listing"
 )
