@@ -34,7 +34,7 @@ class HomeSubredditsTabFragment : Fragment() {
         val repository = AppRepository()
         val factory = ViewModelProviderFactory(repository)
         viewModel = ViewModelProvider(this, factory).get(HomeSubredditsViewModel::class.java)
-        viewModel.subredditList.observe(this, {
+        viewModel.subredditList.observe(viewLifecycleOwner, {
             it.data.children.forEach { element ->
                 element.data.community_icon = element.data.community_icon.toString().replace("&amp;","&")
                 if (element.data.community_icon.toString().isNotEmpty())
@@ -45,10 +45,10 @@ class HomeSubredditsTabFragment : Fragment() {
             val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
             recyclerView.adapter = SubredditListAdapter(this.context, subList, R.layout.home_tab_subreddit_item)
         })
-        viewModel.errorMessage.observe(this, {
+        viewModel.errorMessage.observe(viewLifecycleOwner, {
             //TODO use it
         })
-        viewModel.loading.observe(this, {
+        viewModel.loading.observe(viewLifecycleOwner, {
             if (it) {
                 //TODO: SHOW PROGRESS BAR
             } else {

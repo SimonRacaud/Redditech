@@ -1,15 +1,18 @@
 package my.epi.redditech.activity
 
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import my.epi.redditech.R
 import my.epi.redditech.databinding.ActivitySettingsBinding
 import my.epi.redditech.repository.AppRepository
 import my.epi.redditech.viewmodel.UserViewModel
 import my.epi.redditech.viewmodel.ViewModelProviderFactory
+import android.widget.ImageView
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -45,16 +48,24 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun getSettings() {
         viewModel.user.observe(this, {
-            binding.user = it;
+            /// Loading finished
+            binding.user = it
+
+            val pictureUrl = binding.user!!.icon_img.toString().replace("&amp;","&")
+            println("Picture path is $pictureUrl");
+            if (pictureUrl != "") {
+                val imageView = findViewById<ImageView>(R.id.account_picture)
+                Glide.with(this).load(Uri.parse(pictureUrl)).into(imageView)
+            }
         })
         viewModel.errorMessage.observe(this, {
-            //TODO: use it
+            //TODO: use it (error loading)
         })
         viewModel.loading.observe(this, {
             if (it) {
-                //TODO: it show progress bar
+                //TODO: it show progress bar (loading...)
             } else {
-                //TODO: it mask progress
+                //TODO: it mask progress (no loading...)
             }
         })
     }
