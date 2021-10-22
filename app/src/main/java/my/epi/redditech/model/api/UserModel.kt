@@ -1,14 +1,11 @@
 package my.epi.redditech.model.api
 
-import com.google.gson.annotations.SerializedName
-
 data class UserModel(
     val name: String,           // username
     val id: String,             // unique id
     val oauth_client_id: String = "", // useful ?
     val description: String = "",
-    @SerializedName("public_description")
-    val public_description: String = "description",
+    val subreddit: SubredditModel,
 
     val icon_img: String = "",       // icon
     val snoovatar_img: String = "",  // icon url
