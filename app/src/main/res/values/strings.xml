@@ -34,6 +34,7 @@
     <string name="home_tab_post">Posts</string>
     <string name="home_tab_subreddit">My subreddits</string>
     <string name="subscribe_button">Subscribe</string>
+    <string name="settings_section_title">Settings:</string>
 
     <string-array name="filter_array">
         <item>💯 Best</item>

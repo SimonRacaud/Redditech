@@ -31,6 +31,20 @@ class SettingsViewModel constructor(private val appRepository:
         }
     }
 
+    fun setSettings(pref: PrefModel) {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = appRepository.setSettings(pref)
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    /// TODO settings applied success
+                    loading.value = false
+                } else {
+                    onError("Error : ${response.message()} ")
+                }
+            }
+        }
+    }
+
     private fun onError(message: String) {
         errorMessage.value = message
         loading.value = false

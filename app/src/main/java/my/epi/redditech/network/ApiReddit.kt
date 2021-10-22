@@ -12,6 +12,9 @@ interface ApiReddit {
     @GET("/api/v1/me/prefs")
     suspend fun getSettings(): Response<PrefModel>
 
+    @PATCH("/api/v1/me/prefs")
+    suspend fun setSettings(@Body pref: PrefModel): Response<PrefModel>
+
     @GET("/subreddits/mine/subscriber")
     suspend fun getSubscribeSubreddit(): Response<ListModel<SubredditModel>>
 
