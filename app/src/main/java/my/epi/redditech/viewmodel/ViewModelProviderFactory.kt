@@ -22,6 +22,9 @@ class ViewModelProviderFactory(
         if (modelClass.isAssignableFrom(HomePostsViewModel::class.java)) {
             return HomePostsViewModel(this.appRepository) as T
         }
+        if (modelClass.isAssignableFrom(SubredditViewModel::class.java)) {
+            return SubredditViewModel(this.appRepository) as T
+        }
         throw IllegalArgumentException("ViewModel Not Found")
     }
 }
