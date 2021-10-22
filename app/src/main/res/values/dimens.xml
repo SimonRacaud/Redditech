@@ -5,4 +5,5 @@
     <dimen name="button_padding">10dp</dimen>
     <dimen name="settings_top_margin">15dp</dimen>
     <dimen name="settings_min_width">300dp</dimen>
+    <dimen name="loading_icon_size">100dp</dimen>
 </resources>
