@@ -1,6 +1,5 @@
 package my.epi.redditech.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import my.epi.redditech.repository.AppRepository
@@ -16,6 +15,12 @@ class ViewModelProviderFactory(
         }
         if (modelClass.isAssignableFrom(UserViewModel::class.java)) {
             return UserViewModel(this.appRepository) as T
+        }
+        if (modelClass.isAssignableFrom(HomeSubredditsViewModel::class.java)) {
+            return HomeSubredditsViewModel(this.appRepository) as T
+        }
+        if (modelClass.isAssignableFrom(HomePostsViewModel::class.java)) {
+            return HomePostsViewModel(this.appRepository) as T
         }
         throw IllegalArgumentException("ViewModel Not Found")
     }

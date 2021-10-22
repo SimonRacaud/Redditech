@@ -19,7 +19,7 @@ data class SubredditModel (
     val icon_color: String,
     val icon_img: String,           // icon url (may be empty)
     val icon_size: List<Int>,       // icon size
-    val community_icon: String?,    // icon url 2 (may be empty)
+    var community_icon: String?,    // icon url 2 (may be empty)
 
     val accept_followers: Boolean,  // allow subscribe ?
     val subscribers: Int,           // nb subscribers

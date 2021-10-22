@@ -3,7 +3,7 @@ package my.epi.redditech.model.api
 /**
  * List item
  */
-data class ItemModel(
-    val `data`: Any,
+data class ItemModel<T>(
+    val `data`: T,
     val kind: String
 )
