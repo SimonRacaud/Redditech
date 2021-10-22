@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModelProvider
 import my.epi.redditech.R
 import my.epi.redditech.databinding.ActivitySettingsBinding
 import my.epi.redditech.repository.AppRepository
-import my.epi.redditech.viewmodel.SettingsViewModel
 import my.epi.redditech.viewmodel.UserViewModel
 import my.epi.redditech.viewmodel.ViewModelProviderFactory
 
@@ -21,13 +20,15 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
+        binding = DataBindingUtil.setContentView(
+            this, R.layout.activity_settings)
+        init()
+
+        /// BACK BUTTON
         val button = findViewById<Button>(R.id.back_button)
         button.setOnClickListener {
             finish()
         }
-        binding = DataBindingUtil.setContentView(
-            this, R.layout.activity_settings)
-        init()
     }
 
     private fun init() {
