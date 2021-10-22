@@ -32,7 +32,6 @@ class AuthActivity : AppCompatActivity() {
         finish()
         startActivity(intent)
 
-        /// TODO : we have to token. Now, what do we do with it ?
         /// Save token in preferences
         ApiClient.token = token;
     }
