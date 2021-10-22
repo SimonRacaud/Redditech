@@ -35,6 +35,16 @@
     <string name="home_tab_subreddit">My subreddits</string>
     <string name="subscribe_button">Subscribe</string>
     <string name="settings_section_title">Settings:</string>
+    <string name="loading_image_description">loading image</string>
+    <string name="pref_followers">Enable followers:</string>
+    <string name="pref_unsubscribe">Unsubscribe from all email:</string>
+    <string name="pref_adult">Adult content:</string>
+    <string name="pref_search">Search include adult content:</string>
+    <string name="pref_autoplay">Video autoplay:</string>
+    <string name="pref_perso_adds">Third party data personalized adds:</string>
+    <string name="pref_third_party_personalized_ads">Third party personalized ads :</string>
+    <string name="pref_third_party_site_data_personalized_ads">Third party site data personalized ads:</string>
+    <string name="pref_third_party_site_data_personalized_content">Third party site data personalized content:</string>
 
     <string-array name="filter_array">
         <item>💯 Best</item>

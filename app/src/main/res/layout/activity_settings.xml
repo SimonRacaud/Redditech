@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:visibility="visible">
 
     <data>
+
         <variable
             name="user"
             type="my.epi.redditech.model.api.UserModel" />
+
         <variable
             name="preferences"
             type="my.epi.redditech.model.api.PrefModel" />
@@ -51,9 +54,9 @@
 
         <TextView
             android:id="@+id/user_description"
+            style="@style/DefaultTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/DefaultTextStyle"
             android:layout_marginTop="20dp"
             android:text="@{user.subreddit.public_description}"
             app:layout_constraintStart_toStartOf="@+id/cardView2"
@@ -61,129 +64,130 @@
 
         <TextView
             android:id="@+id/settings_title"
+            style="@style/SubtitleTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/SubtitleTextStyle"
             android:layout_marginTop="30dp"
             android:text="@string/settings_section_title"
             app:layout_constraintStart_toStartOf="@+id/user_description"
             app:layout_constraintTop_toBottomOf="@+id/user_description" />
 
-        <Switch
-            android:id="@+id/switch_follow"
-            style="@style/DescriptionStyle"
-            android:checked="@{preferences.enable_followers}"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="@dimen/settings_min_width"
-            android:layout_marginTop="@dimen/settings_top_margin"
-            android:text="Enable followers: "
+            android:layout_height="0dp"
+            android:orientation="vertical"
             app:layout_constraintStart_toStartOf="@+id/settings_title"
-            app:layout_constraintTop_toBottomOf="@+id/settings_title"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
+            app:layout_constraintTop_toBottomOf="@+id/settings_title">
 
-        <Switch
-            android:id="@+id/switch_unsub_email"
-            style="@style/DescriptionStyle"
-            android:checked="@{preferences.email_unsubscribe_all}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/settings_top_margin"
-            android:minWidth="@dimen/settings_min_width"
-            android:text="Unsubscribe from all email: "
-            app:layout_constraintStart_toStartOf="@+id/switch_follow"
-            app:layout_constraintTop_toBottomOf="@+id/switch_follow"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
+            <Switch
+                android:id="@+id/switch_follow"
+                style="@style/DescriptionStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/settings_top_margin"
+                android:checked="@{preferences.enable_followers}"
+                android:minWidth="@dimen/settings_min_width"
+                android:text="@string/pref_followers"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-        <Switch
-            android:id="@+id/switch_adult"
-            style="@style/DescriptionStyle"
-            android:layout_width="wrap_content"
-            android:checked="@{preferences.over_18}"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/settings_top_margin"
-            android:minWidth="@dimen/settings_min_width"
-            android:text="Adult content: "
-            app:layout_constraintStart_toStartOf="@+id/switch_unsub_email"
-            app:layout_constraintTop_toBottomOf="@+id/switch_unsub_email"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
+            <Switch
+                android:id="@+id/switch_unsub_email"
+                style="@style/DescriptionStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/settings_top_margin"
+                android:checked="@{preferences.email_unsubscribe_all}"
+                android:minWidth="@dimen/settings_min_width"
+                android:text="@string/pref_unsubscribe"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-        <Switch
-            android:id="@+id/switch_adult_search"
-            style="@style/DescriptionStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="@{preferences.search_include_over_18}"
-            android:layout_marginTop="@dimen/settings_top_margin"
-            android:minWidth="@dimen/settings_min_width"
-            android:text="Search include adult content: "
-            app:layout_constraintStart_toStartOf="@+id/switch_adult"
-            app:layout_constraintTop_toBottomOf="@+id/switch_adult"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
+            <Switch
+                android:id="@+id/switch_adult"
+                style="@style/DescriptionStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/settings_top_margin"
+                android:checked="@{preferences.over_18}"
+                android:minWidth="@dimen/settings_min_width"
+                android:text="@string/pref_adult"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-        <Switch
-            android:id="@+id/switch_video_autoplay"
-            style="@style/DescriptionStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="@{preferences.video_autoplay}"
-            android:minWidth="@dimen/settings_min_width"
-            android:layout_marginTop="@dimen/settings_top_margin"
-            android:text="Video autoplay: "
-            app:layout_constraintStart_toStartOf="@+id/switch_adult_search"
-            app:layout_constraintTop_toBottomOf="@+id/switch_adult_search"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
+            <Switch
+                android:id="@+id/switch_adult_search"
+                style="@style/DescriptionStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/settings_top_margin"
+                android:checked="@{preferences.search_include_over_18}"
+                android:minWidth="@dimen/settings_min_width"
+                android:text="@string/pref_search"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-        <Switch
-            android:id="@+id/switch_data_perso_ads"
-            style="@style/DescriptionStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="@{preferences.third_party_data_personalized_ads}"
-            android:layout_marginTop="@dimen/settings_top_margin"
-            android:text="Third party data personalized adds: "
-            android:minWidth="@dimen/settings_min_width"
-            app:layout_constraintStart_toStartOf="@+id/switch_video_autoplay"
-            app:layout_constraintTop_toBottomOf="@+id/switch_video_autoplay"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
+            <Switch
+                android:id="@+id/switch_video_autoplay"
+                style="@style/DescriptionStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/settings_top_margin"
+                android:checked="@{preferences.video_autoplay}"
+                android:minWidth="@dimen/settings_min_width"
+                android:text="@string/pref_autoplay"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-        <Switch
-            android:id="@+id/switch_perso_ads"
-            style="@style/DescriptionStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="@{preferences.third_party_personalized_ads}"
-            android:layout_marginTop="@dimen/settings_top_margin"
-            android:minWidth="@dimen/settings_min_width"
-            android:text="Third party personalized ads : "
-            app:layout_constraintStart_toStartOf="@+id/switch_data_perso_ads"
-            app:layout_constraintTop_toBottomOf="@+id/switch_data_perso_ads"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
+            <Switch
+                android:id="@+id/switch_data_perso_ads"
+                style="@style/DescriptionStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/settings_top_margin"
+                android:checked="@{preferences.third_party_data_personalized_ads}"
+                android:minWidth="@dimen/settings_min_width"
+                android:text="@string/pref_perso_adds"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-        <Switch
-            android:id="@+id/switch_site_data_perso_ads"
-            style="@style/DescriptionStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="@{preferences.third_party_site_data_personalized_ads}"
-            android:layout_marginTop="@dimen/settings_top_margin"
-            android:minWidth="@dimen/settings_min_width"
-            android:text="Third party site data personalized ads: "
-            app:layout_constraintStart_toStartOf="@+id/switch_perso_ads"
-            app:layout_constraintTop_toBottomOf="@+id/switch_perso_ads"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
+            <Switch
+                android:id="@+id/switch_perso_ads"
+                style="@style/DescriptionStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/settings_top_margin"
+                android:checked="@{preferences.third_party_personalized_ads}"
+                android:minWidth="@dimen/settings_min_width"
+                android:text="@string/pref_third_party_personalized_ads"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-        <Switch
-            android:id="@+id/switch_site_data_perso_content"
-            style="@style/DescriptionStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="@{preferences.third_party_site_data_personalized_content}"
-            android:layout_marginTop="@dimen/settings_top_margin"
-            android:text="Third party site data personalized content: "
-            android:minWidth="@dimen/settings_min_width"
-            app:layout_constraintStart_toStartOf="@+id/switch_site_data_perso_ads"
-            app:layout_constraintTop_toBottomOf="@+id/switch_site_data_perso_ads"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
+            <Switch
+                android:id="@+id/switch_site_data_perso_ads"
+                style="@style/DescriptionStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/settings_top_margin"
+                android:checked="@{preferences.third_party_site_data_personalized_ads}"
+                android:minWidth="@dimen/settings_min_width"
+                android:text="@string/pref_third_party_site_data_personalized_ads"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+            <Switch
+                android:id="@+id/switch_site_data_perso_content"
+                style="@style/DescriptionStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/settings_top_margin"
+                android:checked="@{preferences.third_party_site_data_personalized_content}"
+                android:minWidth="@dimen/settings_min_width"
+                android:text="@string/pref_third_party_site_data_personalized_content"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/loading_frag_container"
+            android:name="my.epi.redditech.fragment.LoadingFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

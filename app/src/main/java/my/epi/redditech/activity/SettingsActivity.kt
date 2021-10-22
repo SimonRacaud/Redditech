@@ -1,9 +1,7 @@
 package my.epi.redditech.activity
 
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -19,9 +17,10 @@ import android.widget.CompoundButton
 import my.epi.redditech.model.api.PrefModel
 import my.epi.redditech.model.api.UserModel
 import my.epi.redditech.viewmodel.SettingsViewModel
+import java.lang.Exception
 
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : AbstractLoadingActivity() {
 
     private lateinit var userViewModel: UserViewModel
     private lateinit var prefViewModel: SettingsViewModel
@@ -100,13 +99,18 @@ class SettingsActivity : AppCompatActivity() {
         val factory = ViewModelProviderFactory(repository)
         userViewModel = ViewModelProvider(this, factory).get(UserViewModel::class.java)
         prefViewModel = ViewModelProvider(this, factory).get(SettingsViewModel::class.java)
-        this.getUser()
-        this.getSettings()
+        try {
+            this.getUser()
+            this.getSettings()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
         userViewModel.getUser()
         prefViewModel.getSettings()
     }
 
     private fun getUser() {
+        this.startLoading()
         userViewModel.user.observe(this, {
             /// Loading finished
             binding.user = it
@@ -120,32 +124,33 @@ class SettingsActivity : AppCompatActivity() {
         })
         userViewModel.errorMessage.observe(this, {
             //TODO: use it (error loading)
+            this.stopLoading()
         })
         userViewModel.loading.observe(this, {
             if (it) {
                 //TODO: it show progress bar (loading...)
             } else {
-                //TODO: it mask progress (no loading...)
+                this.stopLoading()
             }
         })
     }
 
     private fun getSettings() {
+        this.startLoading()
         prefViewModel.preferences.observe(this, {
             /// Loading finished
             binding.preferences = it
-
             prefModel = binding.preferences
-            // TODO set switch checked attribute
         })
         userViewModel.errorMessage.observe(this, {
             //TODO: use it (error loading)
+            this.stopLoading()
         })
         userViewModel.loading.observe(this, {
             if (it) {
                 //TODO: it show progress bar (loading...)
             } else {
-                //TODO: it mask progress (no loading...)
+                this.stopLoading()
             }
         })
     }
