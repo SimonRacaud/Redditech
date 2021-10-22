@@ -3,6 +3,7 @@ package my.epi.redditech.adapter
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,10 +47,12 @@ class SubredditListAdapter(
         }
         holder.title.setOnClickListener {
             val intent = Intent(context, SubredditActivity::class.java) // TODO : Go to subbred page
+            intent.putExtra("subredditName", current.title)
             context?.startActivity(intent)
         }
         holder.icon.setOnClickListener {
             val intent = Intent(context, SubredditActivity::class.java) // TODO : Go to subbred page
+            intent.putExtra("subredditName", current.title)
             context?.startActivity(intent)
         }
     }

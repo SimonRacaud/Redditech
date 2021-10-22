@@ -1,5 +1,6 @@
 package my.epi.redditech.activity
 
+import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -35,6 +36,10 @@ class SubredditActivity : AppCompatActivity() {
         button.setOnClickListener {
             finish()
         }
+
+        val intent = getIntent()
+        var subredditName = intent.extras?.get("subredditName").toString()
+        subredditName = subredditName.drop(2)
 
         val repository = AppRepository()
         val factory = ViewModelProviderFactory(repository)
@@ -74,7 +79,7 @@ class SubredditActivity : AppCompatActivity() {
                 //TODO: mask progress
             }
         })
-        viewModel.getInfoSubreddit("mac")
+        viewModel.getInfoSubreddit(subredditName)
 
         val postList = arrayListOf<PostItemModel>()
         postList.add(PostItemModel("Titre du post", "description du post", "https://styles.redditmedia.com/t5_2fwo/styles/communityIcon_1bqa1ibfp8q11.png?width=256&s=45361614cdf4a306d5510b414d18c02603c7dd3c"))
