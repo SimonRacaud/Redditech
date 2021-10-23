@@ -7,18 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.VideoView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import my.epi.redditech.MediaWebViewClient
 import my.epi.redditech.R
 import my.epi.redditech.activity.PostPageActivity
 import my.epi.redditech.activity.SubredditActivity
 import my.epi.redditech.model.PostItemModel
-import retrofit2.http.Url
 
 /**
  * Post List Adapter
@@ -86,9 +83,8 @@ class PostListAdapter(
             holder.video.settings?.allowContentAccess = true
             holder.video.settings?.allowFileAccess = true
             holder.video.settings?.javaScriptEnabled = true
-            holder.video.webViewClient = WebViewClient()
+            holder.video.webViewClient = MediaWebViewClient()
             holder.video.visibility = View.VISIBLE
-            println("LOAD VIDEO ${current.video.media_domain_url}")
         }
         if (current.preview != null) {
             // TODO load images
