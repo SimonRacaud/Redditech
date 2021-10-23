@@ -32,4 +32,8 @@ interface ApiReddit {
 
     @GET("{subreddit}/{filter}")
     suspend fun getSubredditPosts(@Path("subreddit") subreddit: String, @Path("filter") filter: String): Response<ListModel<PostModel>>
+
+    @GET("api/subreddit_autocomplete_v2")
+    suspend fun getSubredditSearch(@Query("query") query: String,
+                                   @Query("include_profiles") include_profiles : String = "false"): Response<ListModel<SubredditModel>>
 }
