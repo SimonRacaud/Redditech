@@ -15,8 +15,8 @@
         >
 
         <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="match_parent"
+            android:id="@+id/subredit_img_header"
+            android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:scaleType="center"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,6 +57,7 @@
         app:layout_constraintTop_toBottomOf="@+id/subscribe_button">
 
         <ImageView
+            android:id="@+id/community_icon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:srcCompat="@tools:sample/avatars" />
