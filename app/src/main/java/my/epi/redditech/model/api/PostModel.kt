@@ -27,6 +27,7 @@ data class PostModel(
     val thumbnail_width: Int?,
 
     val url_overridden_by_dest: String?, // redirect url
+    val domain: String?,
 
     val view_count: Int?,
     val visited: Boolean,

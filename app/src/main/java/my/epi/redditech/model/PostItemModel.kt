@@ -17,7 +17,8 @@ class PostItemModel (
     val thumbnail_width: Int? = null,
     val redirectUrl: String? = null,
     val subredditName: String = "",
-    val video: SecureMediaEmbedModel? = null
+    val media: SecureMediaEmbedModel? = null,
+    val domain: String? = null
 ) {
     constructor (postModel: PostModel) : this(
         postModel.title,
@@ -33,5 +34,6 @@ class PostItemModel (
         postModel.url_overridden_by_dest,
         postModel.subreddit_name_prefixed,
         postModel.secure_media_embed,
+        postModel.domain,
     )
 }

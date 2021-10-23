@@ -2,6 +2,7 @@ package my.epi.redditech.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.media.Image
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import my.epi.redditech.MediaWebViewClient
 import my.epi.redditech.R
 import my.epi.redditech.activity.PostPageActivity
@@ -33,7 +35,8 @@ class PostListAdapter(
         val content: TextView = view.findViewById<TextView>(R.id.content)
         val author: TextView = view.findViewById<TextView>(R.id.author)
         val redirectButton: Button = view.findViewById<Button>(R.id.redirect_button)
-        val video: WebView = view.findViewById<WebView>(R.id.video_view)
+        val media: WebView = view.findViewById<WebView>(R.id.media_view)
+        val picture: ImageView = view.findViewById<ImageView>(R.id.picture)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostListAdapter.ViewHolder {
@@ -46,19 +49,19 @@ class PostListAdapter(
         val current = itemList[position]
 
         if (context != null && !current.thumbnail.isEmpty()) {
-//            Glide.with(context).load(Uri.parse(current.thumbnail)).into(holder.icon)
+            Glide.with(context).load(Uri.parse(current.thumbnail)).into(holder.icon)
         }
         holder.subredditName.text = current.subredditName
         holder.author.text = current.author
 
-        holder.content.text = current.description
-        holder.content.setOnClickListener {
-            val intent = Intent(context, PostPageActivity::class.java)
-            intent.putExtra("post", current.postUrl)
-            context?.startActivity(intent)
-        }
-        if (current.description.isEmpty()) {
-            holder.content.visibility = View.GONE
+        if (current.title.isEmpty() == false) {
+            holder.content.text = current.title
+            holder.content.setOnClickListener {
+                val intent = Intent(context, PostPageActivity::class.java)
+                intent.putExtra("post", current.postUrl)
+                context?.startActivity(intent)
+            }
+            holder.content.visibility = View.VISIBLE
         }
         ///
         holder.subredditName.setOnClickListener {
@@ -67,7 +70,14 @@ class PostListAdapter(
             context?.startActivity(intent)
         }
         ///
-        if (current.redirectUrl != null) {
+        if (current.media != null && !current.media.media_domain_url.isNullOrEmpty()) {
+            holder.media.loadUrl(current.media.media_domain_url)
+            holder.media.settings?.allowContentAccess = true
+            holder.media.settings?.allowFileAccess = true
+            holder.media.settings?.javaScriptEnabled = true
+            holder.media.webViewClient = MediaWebViewClient()
+            holder.media.visibility = View.VISIBLE
+        } else if (current.redirectUrl != null) {
             val url = Uri.parse(current.redirectUrl)
             if (url.host.isNullOrEmpty() == false) {
                 holder.redirectButton.text = "Go to " + url.host
@@ -78,16 +88,14 @@ class PostListAdapter(
             }
             holder.redirectButton.visibility = View.VISIBLE
         }
-        if (current.video != null && !current.video.media_domain_url.isNullOrEmpty()) {
-            holder.video.loadUrl(current.video.media_domain_url)
-            holder.video.settings?.allowContentAccess = true
-            holder.video.settings?.allowFileAccess = true
-            holder.video.settings?.javaScriptEnabled = true
-            holder.video.webViewClient = MediaWebViewClient()
-            holder.video.visibility = View.VISIBLE
-        }
-        if (current.preview != null) {
-            // TODO load images
+        // show image
+        if (context != null && !current.redirectUrl.isNullOrEmpty()
+            && !(current.media != null && !current.media.media_domain_url.isNullOrEmpty())) {
+            val extension = current.redirectUrl.substringAfterLast('.')
+            if (extension == "png" || extension == "jpg") {
+                Glide.with(context).load(Uri.parse(current.redirectUrl)).into(holder.picture)
+                holder.picture.visibility = View.VISIBLE
+            }
         }
     }
 
