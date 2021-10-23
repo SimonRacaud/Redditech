@@ -38,9 +38,9 @@ class HomeSubredditsTabFragment : Fragment() {
             it.data.children.forEach { element ->
                 element.data.community_icon = element.data.community_icon.toString().replace("&amp;","&")
                 if (element.data.community_icon.toString().isNotEmpty())
-                    subList.add(SubredditItemModel(element.data.display_name_prefixed, element.data.community_icon))
+                    subList.add(SubredditItemModel(element.data.display_name_prefixed, element.data.community_icon, element.data.subscribers))
                 else
-                    subList.add(SubredditItemModel(element.data.display_name_prefixed, element.data.icon_img))
+                    subList.add(SubredditItemModel(element.data.display_name_prefixed, element.data.icon_img, element.data.subscribers))
             }
             val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
             recyclerView.adapter = SubredditListAdapter(this.context, subList, R.layout.home_tab_subreddit_item)

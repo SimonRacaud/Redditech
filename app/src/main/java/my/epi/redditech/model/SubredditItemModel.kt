@@ -2,5 +2,6 @@ package my.epi.redditech.model
 
 class SubredditItemModel (
     val title: String = "Title undefined",
-    val imageUrl: String? = null
+    val imageUrl: String? = null,
+    val subscribers: Int = 0,
 )
