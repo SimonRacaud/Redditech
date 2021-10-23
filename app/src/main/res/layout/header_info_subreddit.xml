@@ -10,7 +10,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="@layout/activity_subreddit">
 
@@ -25,18 +25,6 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         />
-
-    <TextView
-        android:id="@+id/subreddit_desc"
-        style="@style/DescriptionStyle"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="5dp"
-        android:text="@{subredditData.public_description}"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
-        app:layout_constraintStart_toStartOf="@+id/subreddit_title"
-        app:layout_constraintTop_toBottomOf="@+id/subreddit_title" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -64,7 +52,16 @@
 
     </LinearLayout>
 
-
+    <TextView
+        android:id="@+id/subreddit_desc"
+        style="@style/DescriptionStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@{subredditData.public_description}"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+        app:layout_constraintStart_toStartOf="@+id/subreddit_title"
+        app:layout_constraintTop_toBottomOf="@+id/subreddit_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
