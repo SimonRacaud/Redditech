@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -19,11 +19,12 @@
             android:id="@+id/imageViewPostIcon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scaleType="centerCrop"
             app:srcCompat="@drawable/reddit_icon_background" />
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/subreddit_name"
         style="@style/MiniBlackStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -34,19 +35,33 @@
         app:layout_constraintStart_toEndOf="@+id/postIcon"
         app:layout_constraintTop_toTopOf="@+id/postIcon" />
 
-    <TextView
-        android:id="@+id/author"
-        style="@style/MiniGrayStyle"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
-        android:breakStrategy="simple"
-        android:layout_marginStart="6dp"
-        android:text="Posted by u/simon"
-        android:textAppearance="?attr/textAppearanceListItem"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="@+id/postIcon"
-        app:layout_constraintStart_toEndOf="@+id/title"
-        app:layout_constraintTop_toTopOf="@+id/postIcon" />
+        app:layout_constraintStart_toEndOf="@+id/subreddit_name"
+        app:layout_constraintTop_toTopOf="@+id/postIcon"
+        >
+        <TextView
+            style="@style/MiniGrayStyle"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:breakStrategy="simple"
+            android:layout_marginStart="6dp"
+            android:text="@string/post_item_posted_by"
+            android:textAppearance="?attr/textAppearanceListItem" />
+        <TextView
+            android:id="@+id/author"
+            style="@style/MiniGrayStyle"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:breakStrategy="simple"
+            android:text="u/simon"
+            android:textAppearance="?attr/textAppearanceListItem" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/content"
@@ -56,10 +71,21 @@
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginTop="5dp"
-        android:text="[KDE Plasma] My first time ricing myself and I decided on this box style inspired by another post."
         android:textAppearance="?attr/textAppearanceListItem"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/postIcon" />
+
+    <Button
+        android:id="@+id/redirect_button"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="8dp"
+        style="@style/SecondaryButtonStyleSmall"
+        android:background="@drawable/button_background_blue"
+        android:text="Go to redirection"
+        app:layout_constraintStart_toStartOf="@+id/postIcon"
+        app:layout_constraintTop_toBottomOf="@+id/content"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

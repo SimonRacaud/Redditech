@@ -2,18 +2,20 @@ package my.epi.redditech.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import my.epi.redditech.R
 import my.epi.redditech.activity.PostPageActivity
+import my.epi.redditech.activity.SubredditActivity
 import my.epi.redditech.model.PostItemModel
+import retrofit2.http.Url
 
 /**
  * Post List Adapter
@@ -26,9 +28,11 @@ class PostListAdapter(
 
     // Post Item
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val icon = view.findViewById<ImageView>(R.id.imageViewPostIcon)
-        val title = view.findViewById<TextView>(R.id.title)
-        val content = view.findViewById<TextView>(R.id.content)
+        val icon: ImageView = view.findViewById<ImageView>(R.id.imageViewPostIcon)
+        val subredditName: TextView = view.findViewById<TextView>(R.id.subreddit_name)
+        val content: TextView = view.findViewById<TextView>(R.id.content)
+        val author: TextView = view.findViewById<TextView>(R.id.author)
+        val redirectButton: Button = view.findViewById<Button>(R.id.redirect_button)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostListAdapter.ViewHolder {
@@ -40,21 +44,43 @@ class PostListAdapter(
     override fun onBindViewHolder(holder: PostListAdapter.ViewHolder, position: Int) {
         val current = itemList[position]
 
-        if (context != null && current.imageUrl != null) {
-            Glide.with(context).load(Uri.parse(current.imageUrl)).into(holder.icon)
+        if (context != null) {
+            Glide.with(context).load(Uri.parse(current.thumbnail)).into(holder.icon)
         }
-        holder.title.text = current.title
-        holder.content.text = current.description
+        holder.subredditName.text = current.subredditName
+        holder.author.text = current.author
 
-        holder.title.setOnClickListener {
-            val intent = Intent(context, PostPageActivity::class.java) // TODO : Go to post page
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        holder.content.text = current.description
+        holder.content.setOnClickListener {
+            val intent = Intent(context, PostPageActivity::class.java)
+            intent.putExtra("post", current.postUrl)
             context?.startActivity(intent)
         }
-        holder.icon.setOnClickListener {
-            val intent = Intent(context, PostPageActivity::class.java) // TODO : Go to post page
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (current.description.isEmpty()) {
+            holder.content.visibility = View.GONE
+        }
+        ///
+        holder.subredditName.setOnClickListener {
+            val intent = Intent(context, SubredditActivity::class.java)
+            intent.putExtra("subreddit", current.subredditName)
             context?.startActivity(intent)
+        }
+        ///
+        if (current.redirectUrl != null) {
+            val url = Uri.parse(current.redirectUrl)
+            if (url.host.isNullOrEmpty() == false) {
+                holder.redirectButton.text = "Go to " + url.host
+            }
+            holder.redirectButton.setOnClickListener {
+                val browseIntent = Intent(Intent.ACTION_VIEW, Uri.parse(current.redirectUrl))
+                context?.startActivity(browseIntent)
+            }
+        }
+        if (current.isVideo) {
+            // TODO load video
+        }
+        if (current.preview != null) {
+            // TODO load images
         }
     }
 

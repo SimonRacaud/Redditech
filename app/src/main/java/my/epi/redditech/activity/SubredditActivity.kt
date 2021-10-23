@@ -82,7 +82,7 @@ class SubredditActivity : AppCompatActivity() {
         viewModel.getInfoSubreddit(subredditName)
 
         val postList = arrayListOf<PostItemModel>()
-        postList.add(PostItemModel("Titre du post", "description du post", "https://styles.redditmedia.com/t5_2fwo/styles/communityIcon_1bqa1ibfp8q11.png?width=256&s=45361614cdf4a306d5510b414d18c02603c7dd3c"))
+        postList.add(PostItemModel("Titre du post", "description du post"))
         postList.add(PostItemModel("Titre du post 2", "description du post"))
         postList.add(PostItemModel("Titre du post de test 3", "Description du post. Description du sub. Description du sub. Description du sub. Description du sub. Description du sub. Description du sub."))
 

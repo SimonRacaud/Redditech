@@ -63,4 +63,9 @@
     <style name="SecondaryButtonStyle" parent="ButtonTextStyle">
         <item name="android:backgroundTint">@color/secondary</item>
     </style>
+
+    <style name="SecondaryButtonStyleSmall" parent="SecondaryButtonStyle">
+        <item name="android:textSize">8sp</item>
+    </style>
+
 </resources>
