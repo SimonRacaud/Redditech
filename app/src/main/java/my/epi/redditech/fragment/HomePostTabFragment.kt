@@ -80,5 +80,4 @@ class HomePostTabFragment : Fragment() {
         })
         viewModel.getPostsFeed("new")
     }
-
 }

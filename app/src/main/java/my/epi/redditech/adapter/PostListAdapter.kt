@@ -6,9 +6,12 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.VideoView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import my.epi.redditech.R
@@ -33,6 +36,7 @@ class PostListAdapter(
         val content: TextView = view.findViewById<TextView>(R.id.content)
         val author: TextView = view.findViewById<TextView>(R.id.author)
         val redirectButton: Button = view.findViewById<Button>(R.id.redirect_button)
+        val video: WebView = view.findViewById<WebView>(R.id.video_view)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostListAdapter.ViewHolder {
@@ -44,8 +48,8 @@ class PostListAdapter(
     override fun onBindViewHolder(holder: PostListAdapter.ViewHolder, position: Int) {
         val current = itemList[position]
 
-        if (context != null) {
-            Glide.with(context).load(Uri.parse(current.thumbnail)).into(holder.icon)
+        if (context != null && !current.thumbnail.isEmpty()) {
+//            Glide.with(context).load(Uri.parse(current.thumbnail)).into(holder.icon)
         }
         holder.subredditName.text = current.subredditName
         holder.author.text = current.author
@@ -75,9 +79,16 @@ class PostListAdapter(
                 val browseIntent = Intent(Intent.ACTION_VIEW, Uri.parse(current.redirectUrl))
                 context?.startActivity(browseIntent)
             }
+            holder.redirectButton.visibility = View.VISIBLE
         }
-        if (current.isVideo) {
-            // TODO load video
+        if (current.video != null && !current.video.media_domain_url.isNullOrEmpty()) {
+            holder.video.loadUrl(current.video.media_domain_url)
+            holder.video.settings?.allowContentAccess = true
+            holder.video.settings?.allowFileAccess = true
+            holder.video.settings?.javaScriptEnabled = true
+            holder.video.webViewClient = WebViewClient()
+            holder.video.visibility = View.VISIBLE
+            println("LOAD VIDEO ${current.video.media_domain_url}")
         }
         if (current.preview != null) {
             // TODO load images

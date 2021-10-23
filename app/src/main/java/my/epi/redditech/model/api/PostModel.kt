@@ -41,4 +41,6 @@ data class PostModel(
     val num_comments: Int,
     val score: Int,
     val spoiler: Boolean,
+
+    val secure_media_embed: SecureMediaEmbedModel?,
 )
