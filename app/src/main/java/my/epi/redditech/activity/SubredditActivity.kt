@@ -1,10 +1,7 @@
 package my.epi.redditech.activity
 
-import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.*
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -36,13 +33,61 @@ class SubredditActivity : AppCompatActivity() {
         button.setOnClickListener {
             finish()
         }
-
+        /// Get Parameters
         val intent = getIntent()
         var subredditName = intent.extras?.get("subredditName").toString()
-        subredditName = subredditName.drop(2)
+        val subredditNameShort = subredditName.drop(2) // remove the "r/"
+        /// Load content
+        this.loadMetadata(subredditNameShort)
+        this.loadListContent(subredditName)
 
+        // Filters selector creation
+        this.createFilterSelector()
+
+    }
+
+    private fun createFilterSelector() {
+        val spinner: Spinner = findViewById(R.id.filter_selector)
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.filter_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = adapter
+        }
+    }
+
+    private fun loadListContent(pageName: String) {
+        val postList = arrayListOf<PostItemModel>()
         val repository = AppRepository()
         val factory = ViewModelProviderFactory(repository)
+
+        viewModel = ViewModelProvider(this, factory).get(SubredditViewModel::class.java)
+        viewModel.subredditPosts.observe(this, {
+            it.data.children.forEach { element ->
+                postList.add(PostItemModel(element.data))
+            }
+            val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+            recyclerView.adapter = PostListAdapter(this, postList, R.layout.home_tab_post_item)
+        })
+        viewModel.errorMessage.observe(this, {
+            //TODO use it
+        })
+        viewModel.loading.observe(this, {
+            if (it) {
+                //TODO: SHOW PROGRESS BAR
+            } else {
+                //TODO: mask progress
+            }
+        })
+        viewModel.getSubredditPosts(pageName, "hot")
+    }
+
+    private fun loadMetadata(pageName: String) {
+        val repository = AppRepository()
+        val factory = ViewModelProviderFactory(repository)
+
         viewModel = ViewModelProvider(this, factory).get(SubredditViewModel::class.java)
         viewModel.subredditInfo.observe(this, {
             binding.lifecycleOwner = this
@@ -67,7 +112,6 @@ class SubredditActivity : AppCompatActivity() {
             } else {
                 subscribeButton.setText("SUBSCRIBE")
             }
-
         })
         viewModel.errorMessage.observe(this, {
             //TODO use it
@@ -79,25 +123,6 @@ class SubredditActivity : AppCompatActivity() {
                 //TODO: mask progress
             }
         })
-        viewModel.getInfoSubreddit(subredditName)
-
-        val postList = arrayListOf<PostItemModel>()
-        postList.add(PostItemModel("Titre du post", "description du post"))
-        postList.add(PostItemModel("Titre du post 2", "description du post"))
-        postList.add(PostItemModel("Titre du post de test 3", "Description du post. Description du sub. Description du sub. Description du sub. Description du sub. Description du sub. Description du sub."))
-
-        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
-        recyclerView.adapter = PostListAdapter(this.applicationContext, postList, R.layout.home_tab_post_item)
-
-        // Filters selector creation
-        val spinner: Spinner = findViewById(R.id.filter_selector)
-        ArrayAdapter.createFromResource(
-            this,
-            R.array.filter_array,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinner.adapter = adapter
-        }
+        viewModel.getInfoSubreddit(pageName)
     }
 }

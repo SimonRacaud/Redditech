@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
 import my.epi.redditech.model.api.ItemModel
+import my.epi.redditech.model.api.ListModel
 import my.epi.redditech.model.api.PostModel
 import my.epi.redditech.model.api.SubredditModel
 import my.epi.redditech.repository.AppRepository
@@ -12,6 +13,7 @@ class SubredditViewModel constructor(private val appRepository:
                                      AppRepository) : ViewModel() {
     val errorMessage = MutableLiveData<String>()
     val subredditInfo = MutableLiveData<ItemModel<SubredditModel>>()
+    val subredditPosts = MutableLiveData<ListModel<PostModel>>()
     private var job: Job? = null
     var exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         onError("Exception handled: ${throwable.localizedMessage}")
@@ -25,6 +27,20 @@ class SubredditViewModel constructor(private val appRepository:
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     subredditInfo.postValue(response.body())
+                    loading.value = false
+                } else {
+                    onError("Error: ${response.message()}")
+                }
+            }
+        }
+    }
+
+    fun getSubredditPosts(subreddit: String, filter: String) {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val response = appRepository.getSubredditPosts(subreddit, filter)
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    subredditPosts.postValue(response.body())
                     loading.value = false
                 } else {
                     onError("Error: ${response.message()}")

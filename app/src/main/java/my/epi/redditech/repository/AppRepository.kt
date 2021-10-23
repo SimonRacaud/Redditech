@@ -1,6 +1,7 @@
 package my.epi.redditech.repository
 
 import my.epi.redditech.model.api.ListModel
+import my.epi.redditech.model.api.PostModel
 import my.epi.redditech.model.api.PrefModel
 import my.epi.redditech.model.api.SubredditModel
 import my.epi.redditech.network.ApiClient
@@ -17,7 +18,9 @@ class AppRepository {
 
     suspend fun getPostsFeed(sort : String) = ApiClient.apiReddit.getPostsFeed(sort)
 
+    // Subreddit home
     suspend fun getSubredditInfo(subreddit : String) = ApiClient.apiReddit.getSubredditInfo(subreddit)
+    suspend fun getSubredditPosts(subreddit: String, filter: String) = ApiClient.apiReddit.getSubredditPosts(subreddit, filter)
 
     // Search
     suspend fun getSubredditList(filter: String) = ApiClient.apiReddit.getSubredditList(filter)
