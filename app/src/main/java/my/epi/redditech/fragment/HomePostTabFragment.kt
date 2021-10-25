@@ -59,23 +59,23 @@ class HomePostTabFragment : Fragment() {
         val postList = arrayListOf<PostItemModel>()
         val repository = AppRepository()
         val factory = ViewModelProviderFactory(repository)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
 
         viewModel = ViewModelProvider(this, factory).get(HomePostsViewModel::class.java)
         viewModel.postsList.observe(viewLifecycleOwner, {
             it.data.children.forEach { element ->
                 postList.add(PostItemModel(element.data))
             }
-            val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
-            recyclerView.adapter = PostListAdapter(this.context, postList, R.layout.home_tab_post_item)
         })
-        viewModel.errorMessage.observe(this, {
+        viewModel.errorMessage.observe(viewLifecycleOwner, {
             //TODO use it
         })
-        viewModel.loading.observe(this, {
+        viewModel.loading.observe(viewLifecycleOwner, {
             if (it) {
                 //TODO: SHOW PROGRESS BAR
             } else {
                 //TODO: mask progress
+                recyclerView.adapter = PostListAdapter(this.context, postList, R.layout.home_tab_post_item)
             }
         })
         viewModel.getPostsFeed("new")
