@@ -10,17 +10,24 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.SimpleTarget
 import my.epi.redditech.R
 import my.epi.redditech.activity.SubredditActivity
 import my.epi.redditech.model.SubredditItemModel
+import android.graphics.Bitmap
+
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+
+
+
 
 /**
  * Subreddit List Adapter
  */
 class SubredditListAdapter(
-    private val context: Context?,
+    private val context: Context,
     private val itemList: MutableList<SubredditItemModel>,
-    private val layoutId: Int
+    private val layoutId: Int,
 ) : RecyclerView.Adapter<SubredditListAdapter.ViewHolder>() {
 
     // Post Item
@@ -46,8 +53,9 @@ class SubredditListAdapter(
             holder.itemView.setOnClickListener { onClickListener(current.title) }
         }
         holder.subscriberCounter.text = this.getFormatNumber(current.subscribers)
-        if (context != null && current.imageUrl != null && current.imageUrl != "") {
-            Glide.with(context).load(Uri.parse(current.imageUrl)).into(holder.icon)
+        if (!current.imageUrl.isNullOrEmpty()) {
+            val uri = Uri.parse(current.imageUrl)
+            Glide.with(context).load(uri).into(holder.icon)
         }
     }
 

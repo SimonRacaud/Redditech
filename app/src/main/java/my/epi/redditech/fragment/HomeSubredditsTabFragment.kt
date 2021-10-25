@@ -1,19 +1,23 @@
 package my.epi.redditech.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemAnimator
 import my.epi.redditech.R
 import my.epi.redditech.adapter.SubredditListAdapter
 import my.epi.redditech.model.SubredditItemModel
 import my.epi.redditech.repository.AppRepository
 import my.epi.redditech.viewmodel.HomeSubredditsViewModel
 import my.epi.redditech.viewmodel.ViewModelProviderFactory
+import androidx.recyclerview.widget.SimpleItemAnimator
+
+
+
 
 /**
  * Home My Subreddits list tab
@@ -53,7 +57,7 @@ class HomeSubredditsTabFragment : Fragment() {
                 //TODO: SHOW PROGRESS BAR
             } else {
                 //TODO: mask progress
-                recyclerView.adapter = SubredditListAdapter(this.context, subList, R.layout.home_tab_subreddit_item)
+                recyclerView.adapter = SubredditListAdapter(this.requireContext(), subList, R.layout.home_tab_subreddit_item)
             }
         })
         viewModel.getSubscribedSubreddit()
