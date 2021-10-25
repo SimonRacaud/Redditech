@@ -14,6 +14,7 @@ import my.epi.redditech.databinding.ActivitySubredditBinding
 import my.epi.redditech.model.PostItemModel
 import my.epi.redditech.model.api.SubredditModel
 import my.epi.redditech.repository.AppRepository
+import my.epi.redditech.utils.Utils
 import my.epi.redditech.viewmodel.SubredditViewModel
 import my.epi.redditech.viewmodel.ViewModelProviderFactory
 
@@ -119,7 +120,7 @@ class SubredditActivity : AppCompatActivity() {
             Glide.with(this).load(comunityIconUrl).into(iconImg)
 
             val nbSubscriber = findViewById<TextView>(R.id.header_nb_subscribers)
-            nbSubscriber.text = it.data.subscribers.toString()
+            nbSubscriber.text = Utils.getFormatNumber(it.data.subscribers)
 
             val subscribeButton = findViewById<Button>(R.id.subscribe_button)
             if (it.data.user_is_subscriber) {

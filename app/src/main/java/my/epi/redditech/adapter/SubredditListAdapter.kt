@@ -17,8 +17,7 @@ import my.epi.redditech.model.SubredditItemModel
 import android.graphics.Bitmap
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-
-
+import my.epi.redditech.utils.Utils
 
 
 /**
@@ -50,7 +49,7 @@ class SubredditListAdapter(
 
         holder.title.text = current.title
         holder.itemView.setOnClickListener { onClickListener(current.title) }
-        holder.subscriberCounter.text = this.getFormatNumber(current.subscribers)
+        holder.subscriberCounter.text = Utils.getFormatNumber(current.subscribers)
         if (!current.imageUrl.isNullOrEmpty()) {
             val uri = Uri.parse(current.imageUrl)
             Glide.with(context).load(uri).into(holder.icon)
@@ -62,17 +61,6 @@ class SubredditListAdapter(
 
         intent.putExtra("subredditName", pageName)
         context?.startActivity(intent)
-    }
-
-    private fun getFormatNumber(number: Int) : String {
-        var str = number.toString()
-
-        if (str.length > 6) {
-            str = str.substring(0, str.length - 6) + 'M'
-        } else if (str.length > 3) {
-            str = str.substring(0, str.length - 3) + 'K'
-        }
-        return str
     }
 
     fun clear()
