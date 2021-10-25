@@ -44,4 +44,5 @@ data class PostModel(
     val spoiler: Boolean,
 
     val secure_media_embed: SecureMediaEmbedModel?,
+    val secure_media: SecureMediaModel?,
 )

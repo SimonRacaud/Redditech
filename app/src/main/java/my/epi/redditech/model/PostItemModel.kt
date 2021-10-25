@@ -3,6 +3,7 @@ package my.epi.redditech.model
 import my.epi.redditech.model.api.PostModel
 import my.epi.redditech.model.api.PreviewModel
 import my.epi.redditech.model.api.SecureMediaEmbedModel
+import my.epi.redditech.model.api.SecureMediaModel
 
 class PostItemModel (
     val title: String = "Title undefined",
@@ -17,7 +18,8 @@ class PostItemModel (
     val thumbnail_width: Int? = null,
     val redirectUrl: String? = null,
     val subredditName: String = "",
-    val media: SecureMediaEmbedModel? = null,
+    val mediaEmbed: SecureMediaEmbedModel? = null,
+    val media: SecureMediaModel? = null,
     val domain: String? = null
 ) {
     constructor (postModel: PostModel) : this(
@@ -34,6 +36,7 @@ class PostItemModel (
         postModel.url_overridden_by_dest,
         postModel.subreddit_name_prefixed,
         postModel.secure_media_embed,
+        postModel.secure_media,
         postModel.domain,
     )
 }

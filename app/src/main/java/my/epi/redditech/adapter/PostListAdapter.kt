@@ -2,7 +2,6 @@ package my.epi.redditech.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.media.Image
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -51,52 +50,71 @@ class PostListAdapter(
         if (context != null && !current.thumbnail.isEmpty()) {
             Glide.with(context).load(Uri.parse(current.thumbnail)).into(holder.icon)
         }
+        holder.itemView.setOnClickListener { onClickEventView(current.subredditName) }
         holder.subredditName.text = current.subredditName
+        holder.subredditName.setOnClickListener { onClickSubreddit(current.subredditName) }
         holder.author.text = current.author
-
-        if (current.title.isEmpty() == false) {
-            holder.content.text = current.title
-            holder.content.setOnClickListener {
-                val intent = Intent(context, PostPageActivity::class.java)
-                intent.putExtra("post", current.postUrl)
-                context?.startActivity(intent)
-            }
-            holder.content.visibility = View.VISIBLE
-        }
-        ///
-        holder.subredditName.setOnClickListener {
-            val intent = Intent(context, SubredditActivity::class.java)
-            intent.putExtra("subreddit", current.subredditName)
-            context?.startActivity(intent)
-        }
-        ///
-        if (current.media != null && !current.media.media_domain_url.isNullOrEmpty()) {
-            holder.media.loadUrl(current.media.media_domain_url)
+        holder.content.text = current.title
+//        if (current.title.isEmpty() == false) {
+//             holder.content.visibility = View.VISIBLE
+//        }
+        /// Embded Media
+        if (current.mediaEmbed != null && !current.mediaEmbed.media_domain_url.isNullOrEmpty()
+            && holder.picture.visibility == View.GONE
+        ) {
+            holder.media.loadUrl(current.mediaEmbed.media_domain_url)
             holder.media.settings?.allowContentAccess = true
             holder.media.settings?.allowFileAccess = true
             holder.media.settings?.javaScriptEnabled = true
             holder.media.webViewClient = MediaWebViewClient()
             holder.media.visibility = View.VISIBLE
-        } else if (current.redirectUrl != null) {
+        }
+        if (current.media != null && current.media.reddit_video != null && current.media.reddit_video.fallback_url != ""
+            && holder.picture.visibility == View.GONE
+        ) {
+            holder.media.loadUrl(current.media.reddit_video.fallback_url)
+            holder.media.settings?.allowContentAccess = true
+            holder.media.settings?.allowFileAccess = true
+            holder.media.settings?.javaScriptEnabled = true
+            holder.media.webViewClient = MediaWebViewClient()
+            holder.media.visibility = View.VISIBLE
+        }
+        if (!current.redirectUrl.isNullOrEmpty()) {
             val url = Uri.parse(current.redirectUrl)
             if (url.host.isNullOrEmpty() == false) {
-                holder.redirectButton.text = "Go to " + url.host
+                holder.redirectButton.text = "Go to ${url.host}"
             }
-            holder.redirectButton.setOnClickListener {
-                val browseIntent = Intent(Intent.ACTION_VIEW, Uri.parse(current.redirectUrl))
-                context?.startActivity(browseIntent)
-            }
+            holder.redirectButton.setOnClickListener { onClickRedirect(current.redirectUrl) }
             holder.redirectButton.visibility = View.VISIBLE
         }
         // show image
         if (context != null && !current.redirectUrl.isNullOrEmpty()
-            && !(current.media != null && !current.media.media_domain_url.isNullOrEmpty())) {
+            && holder.media.visibility == View.GONE
+        ) {
             val extension = current.redirectUrl.substringAfterLast('.')
+
             if (extension == "png" || extension == "jpg") {
                 Glide.with(context).load(Uri.parse(current.redirectUrl)).into(holder.picture)
                 holder.picture.visibility = View.VISIBLE
             }
         }
+    }
+
+    private fun onClickEventView(pageName: String) {
+        val intent = Intent(context, PostPageActivity::class.java)
+        intent.putExtra("post", pageName)
+        context?.startActivity(intent)
+    }
+
+    private fun onClickRedirect(url: String) {
+        val browseIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        context?.startActivity(browseIntent)
+    }
+
+    private fun onClickSubreddit(pageName: String) {
+        val intent = Intent(context, SubredditActivity::class.java)
+        intent.putExtra("subredditName", pageName)
+        context?.startActivity(intent)
     }
 
     override fun getItemCount(): Int = itemList.size
