@@ -18,8 +18,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/postIcon"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         app:cardCornerRadius="50dp"
@@ -28,8 +28,8 @@
 
         <ImageView
             android:id="@+id/imageViewPostIcon"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/reddit_icon_background" />
     </androidx.cardview.widget.CardView>
@@ -95,7 +95,7 @@
         android:layout_marginTop="8dp"
         style="@style/SecondaryButtonStyleSmall"
         android:background="@drawable/button_background_blue"
-        android:text="Go to redirection"
+        android:text="@string/post_redirection_button_default"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/postIcon"
         app:layout_constraintTop_toBottomOf="@+id/content"
@@ -104,7 +104,7 @@
     <WebView
         android:id="@+id/media_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:layout_marginTop="10dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
