@@ -33,6 +33,8 @@ class HomeSubredditsTabFragment : Fragment() {
         val subList = arrayListOf<SubredditItemModel>()
         val repository = AppRepository()
         val factory = ViewModelProviderFactory(repository)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
+
         viewModel = ViewModelProvider(this, factory).get(HomeSubredditsViewModel::class.java)
         viewModel.subredditList.observe(viewLifecycleOwner, {
             it.data.children.forEach { element ->
@@ -42,8 +44,6 @@ class HomeSubredditsTabFragment : Fragment() {
                 else
                     subList.add(SubredditItemModel(element.data.display_name_prefixed, element.data.icon_img, element.data.subscribers))
             }
-            val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
-            recyclerView.adapter = SubredditListAdapter(this.context, subList, R.layout.home_tab_subreddit_item)
         })
         viewModel.errorMessage.observe(viewLifecycleOwner, {
             //TODO use it
@@ -53,10 +53,10 @@ class HomeSubredditsTabFragment : Fragment() {
                 //TODO: SHOW PROGRESS BAR
             } else {
                 //TODO: mask progress
+                recyclerView.adapter = SubredditListAdapter(this.context, subList, R.layout.home_tab_subreddit_item)
             }
         })
         viewModel.getSubscribedSubreddit()
-
         return view;
     }
 }

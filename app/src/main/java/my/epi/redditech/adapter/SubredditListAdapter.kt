@@ -47,20 +47,23 @@ class SubredditListAdapter(
         val current = itemList[position]
 
         holder.title.text = current.title
+        if (!holder.title.hasOnClickListeners()) {
+            holder.title.setOnClickListener { onClickListener(current.title) }
+        }
+        if (!holder.icon.hasOnClickListeners()) {
+            holder.icon.setOnClickListener { onClickListener(current.title) }
+        }
+        holder.subscriberCounter.text = this.getFormatNumber(current.subscribers)
         if (context != null && current.imageUrl != null && current.imageUrl != "") {
             Glide.with(context).load(Uri.parse(current.imageUrl)).into(holder.icon)
         }
-        holder.title.setOnClickListener {
-            val intent = Intent(context, SubredditActivity::class.java) // TODO : Go to subbred page
-            intent.putExtra("subredditName", current.title)
-            context?.startActivity(intent)
-        }
-        holder.icon.setOnClickListener {
-            val intent = Intent(context, SubredditActivity::class.java) // TODO : Go to subbred page
-            intent.putExtra("subredditName", current.title)
-            context?.startActivity(intent)
-        }
-        holder.subscriberCounter.text = this.getFormatNumber(current.subscribers)
+    }
+
+    private fun onClickListener(pageName: String) {
+        val intent = Intent(context, SubredditActivity::class.java) // TODO : Go to subbred page
+
+        intent.putExtra("subredditName", pageName)
+        context?.startActivity(intent)
     }
 
     private fun getFormatNumber(number: Int) : String {
