@@ -2,6 +2,7 @@ package my.epi.redditech.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -22,14 +23,14 @@ class SubredditActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySubredditBinding
     private lateinit var subredditInfo : SubredditModel
     private lateinit var subredditNameShort : String
+    private var subState = false
 
     private fun changeStatusButtonSub() {
         val subscribeButton = findViewById<Button>(R.id.subscribe_button)
-
-        if (subscribeButton.text == "UNSUBSCRIBE") {
-            subscribeButton.text = "SUBSCRIBE"
-        } else {
+        if (subState) {
             subscribeButton.text = "UNSUBSCRIBE"
+        } else {
+            subscribeButton.text = "SUBSCRIBE"
         }
     }
 
@@ -122,13 +123,15 @@ class SubredditActivity : AppCompatActivity() {
 
             val subscribeButton = findViewById<Button>(R.id.subscribe_button)
             if (it.data.user_is_subscriber) {
+                subState = true
                 subscribeButton.text = "UNSUBSCRIBE"
             } else {
+                subState = false
                 subscribeButton.text = "SUBSCRIBE"
             }
             subscribeButton.setOnClickListener {
-                if (subredditInfo.user_is_subscriber) {
-                    viewModel.subscribeToSub(subredditNameShort, "unsub" )
+                if (subState) {
+                    viewModel.subscribeToSub(subredditNameShort, "unsub")
                 } else {
                     viewModel.subscribeToSub(subredditNameShort, "sub")
                 }
@@ -147,6 +150,7 @@ class SubredditActivity : AppCompatActivity() {
         viewModel.getInfoSubreddit(pageName)
         viewModel.subscribeAction.observe(this, {
             if (it) {
+                subState = !subState
                 changeStatusButtonSub()
             }
         })
