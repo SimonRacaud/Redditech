@@ -49,9 +49,7 @@ class SubredditListAdapter(
         val current = itemList[position]
 
         holder.title.text = current.title
-        if (!holder.itemView.hasOnClickListeners()) {
-            holder.itemView.setOnClickListener { onClickListener(current.title) }
-        }
+        holder.itemView.setOnClickListener { onClickListener(current.title) }
         holder.subscriberCounter.text = this.getFormatNumber(current.subscribers)
         if (!current.imageUrl.isNullOrEmpty()) {
             val uri = Uri.parse(current.imageUrl)
