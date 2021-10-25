@@ -36,4 +36,7 @@ interface ApiReddit {
     @GET("api/subreddit_autocomplete_v2")
     suspend fun getSubredditSearch(@Query("query") query: String,
                                    @Query("include_profiles") include_profiles : String = "false"): Response<ListModel<SubredditModel>>
+
+    @POST("/api/subscribe")
+    suspend fun subscribe(@Query("action") query : String, @Query("sr_name") name : String): Response<Void>
 }

@@ -11,6 +11,7 @@ import my.epi.redditech.R
 import my.epi.redditech.adapter.PostListAdapter
 import my.epi.redditech.databinding.ActivitySubredditBinding
 import my.epi.redditech.model.PostItemModel
+import my.epi.redditech.model.api.SubredditModel
 import my.epi.redditech.repository.AppRepository
 import my.epi.redditech.viewmodel.SubredditViewModel
 import my.epi.redditech.viewmodel.ViewModelProviderFactory
@@ -19,6 +20,18 @@ class SubredditActivity : AppCompatActivity() {
 
     private lateinit var viewModel: SubredditViewModel
     private lateinit var binding: ActivitySubredditBinding
+    private lateinit var subredditInfo : SubredditModel
+    private lateinit var subredditNameShort : String
+
+    private fun changeStatusButtonSub() {
+        val subscribeButton = findViewById<Button>(R.id.subscribe_button)
+
+        if (subscribeButton.text == "UNSUBSCRIBE") {
+            subscribeButton.text = "SUBSCRIBE"
+        } else {
+            subscribeButton.text = "UNSUBSCRIBE"
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +49,7 @@ class SubredditActivity : AppCompatActivity() {
         /// Get Parameters
         val intent = getIntent()
         var subredditName = intent.extras?.get("subredditName").toString()
-        val subredditNameShort = subredditName.drop(2) // remove the "r/"
+        subredditNameShort = subredditName.drop(2) // remove the "r/"
         /// Load content
         this.loadMetadata(subredditNameShort)
         this.loadListContent(subredditName)
@@ -92,6 +105,7 @@ class SubredditActivity : AppCompatActivity() {
         viewModel.subredditInfo.observe(this, {
             binding.lifecycleOwner = this
             binding.subreddit = it.data
+            subredditInfo = it.data
 
             val headerImg = findViewById<ImageView>(R.id.subredit_img_header)
             var bannerUrl = it.data.banner_background_image
@@ -104,13 +118,20 @@ class SubredditActivity : AppCompatActivity() {
             Glide.with(this).load(comunityIconUrl).into(iconImg)
 
             val nbSubscriber = findViewById<TextView>(R.id.header_nb_subscribers)
-            nbSubscriber.setText(it.data.subscribers.toString())
+            nbSubscriber.text = it.data.subscribers.toString()
 
             val subscribeButton = findViewById<Button>(R.id.subscribe_button)
             if (it.data.user_is_subscriber) {
-                subscribeButton.setText("UNSUBSCRIBE")
+                subscribeButton.text = "UNSUBSCRIBE"
             } else {
-                subscribeButton.setText("SUBSCRIBE")
+                subscribeButton.text = "SUBSCRIBE"
+            }
+            subscribeButton.setOnClickListener {
+                if (subredditInfo.user_is_subscriber) {
+                    viewModel.subscribeToSub(subredditNameShort, "unsub" )
+                } else {
+                    viewModel.subscribeToSub(subredditNameShort, "sub")
+                }
             }
         })
         viewModel.errorMessage.observe(this, {
@@ -124,5 +145,10 @@ class SubredditActivity : AppCompatActivity() {
             }
         })
         viewModel.getInfoSubreddit(pageName)
+        viewModel.subscribeAction.observe(this, {
+            if (it) {
+                changeStatusButtonSub()
+            }
+        })
     }
 }

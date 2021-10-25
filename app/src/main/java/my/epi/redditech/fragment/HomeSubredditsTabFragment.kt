@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ItemAnimator
+import androidx.recyclerview.widget.RecyclerView.*
 import my.epi.redditech.R
 import my.epi.redditech.adapter.SubredditListAdapter
 import my.epi.redditech.model.SubredditItemModel
@@ -26,6 +26,12 @@ class HomeSubredditsTabFragment : Fragment() {
 
     private lateinit var viewModel: HomeSubredditsViewModel
 
+    override fun onStart() {
+        super.onStart()
+
+        this.fetchData()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,14 +39,18 @@ class HomeSubredditsTabFragment : Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.home_subs_tab_fragment, container, false)
 
-        // TODO : debug data (api call)
+        return view;
+    }
+
+    private fun fetchData() {
         val subList = arrayListOf<SubredditItemModel>()
         val repository = AppRepository()
         val factory = ViewModelProviderFactory(repository)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
+        val recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_view)
 
         viewModel = ViewModelProvider(this, factory).get(HomeSubredditsViewModel::class.java)
         viewModel.subredditList.observe(viewLifecycleOwner, {
+            subList.clear()
             it.data.children.forEach { element ->
                 element.data.community_icon = element.data.community_icon.toString().replace("&amp;","&")
                 if (element.data.community_icon.toString().isNotEmpty())
@@ -57,10 +67,9 @@ class HomeSubredditsTabFragment : Fragment() {
                 //TODO: SHOW PROGRESS BAR
             } else {
                 //TODO: mask progress
-                recyclerView.adapter = SubredditListAdapter(this.requireContext(), subList, R.layout.home_tab_subreddit_item)
+                recyclerView?.adapter = SubredditListAdapter(this.requireContext(), subList, R.layout.home_tab_subreddit_item)
             }
         })
         viewModel.getSubscribedSubreddit()
-        return view;
     }
 }
