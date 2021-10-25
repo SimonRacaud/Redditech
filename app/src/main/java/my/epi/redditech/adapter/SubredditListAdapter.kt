@@ -1,10 +1,8 @@
 package my.epi.redditech.adapter
 
-import android.R.attr
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +13,6 @@ import com.bumptech.glide.Glide
 import my.epi.redditech.R
 import my.epi.redditech.activity.SubredditActivity
 import my.epi.redditech.model.SubredditItemModel
-import android.R.attr.data
-import org.w3c.dom.Text
-
 
 /**
  * Subreddit List Adapter
@@ -47,11 +42,8 @@ class SubredditListAdapter(
         val current = itemList[position]
 
         holder.title.text = current.title
-        if (!holder.title.hasOnClickListeners()) {
-            holder.title.setOnClickListener { onClickListener(current.title) }
-        }
-        if (!holder.icon.hasOnClickListeners()) {
-            holder.icon.setOnClickListener { onClickListener(current.title) }
+        if (!holder.itemView.hasOnClickListeners()) {
+            holder.itemView.setOnClickListener { onClickListener(current.title) }
         }
         holder.subscriberCounter.text = this.getFormatNumber(current.subscribers)
         if (context != null && current.imageUrl != null && current.imageUrl != "") {
