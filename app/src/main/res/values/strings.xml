@@ -50,10 +50,9 @@
     <string name="post_redirection_button_default">Go to redirection</string>
 
     <string-array name="filter_array">
-        <item>💯 Best</item>
+        <item>💯 Rising</item>
         <item>🔥 Hot</item>
         <item>🏁 New</item>
         <item>💘 Top</item>
-        <item>🔀 Random</item>
     </string-array>
 </resources>

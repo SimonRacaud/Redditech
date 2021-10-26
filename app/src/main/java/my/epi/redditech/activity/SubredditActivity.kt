@@ -3,6 +3,7 @@ package my.epi.redditech.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.*
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -24,7 +25,9 @@ class SubredditActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySubredditBinding
     private lateinit var subredditInfo : SubredditModel
     private lateinit var subredditNameShort : String
+    private lateinit var subredditName : String
     private var subState = false
+    private var postFilter = arrayOf("rising", "hot", "new", "top")
 
     private fun changeStatusButtonSub() {
         val subscribeButton = findViewById<Button>(R.id.subscribe_button)
@@ -50,11 +53,10 @@ class SubredditActivity : AppCompatActivity() {
         }
         /// Get Parameters
         val intent = getIntent()
-        var subredditName = intent.extras?.get("subredditName").toString()
+        subredditName = intent.extras?.get("subredditName").toString()
         subredditNameShort = subredditName.drop(2) // remove the "r/"
         /// Load content
         this.loadMetadata(subredditNameShort)
-        this.loadListContent(subredditName)
 
         // Filters selector creation
         this.createFilterSelector()
@@ -71,15 +73,28 @@ class SubredditActivity : AppCompatActivity() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
         }
+        spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (postFilter[position].isNotEmpty()) {
+                    loadListContent(subredditName, postFilter[position])
+                } else {
+                    loadListContent(subredditName, "hot")
+                }
+
+            }
+        }
     }
 
-    private fun loadListContent(pageName: String) {
+    private fun loadListContent(pageName: String, filter: String) {
         val postList = arrayListOf<PostItemModel>()
         val repository = AppRepository()
         val factory = ViewModelProviderFactory(repository)
 
         viewModel = ViewModelProvider(this, factory).get(SubredditViewModel::class.java)
         viewModel.subredditPosts.observe(this, {
+            postList.clear()
             it.data.children.forEach { element ->
                 postList.add(PostItemModel(element.data))
             }
@@ -96,7 +111,7 @@ class SubredditActivity : AppCompatActivity() {
                 //TODO: mask progress
             }
         })
-        viewModel.getSubredditPosts(pageName, "hot")
+        viewModel.getSubredditPosts(pageName, filter)
     }
 
     private fun loadMetadata(pageName: String) {
