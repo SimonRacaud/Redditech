@@ -1,4 +1,4 @@
-package my.epi.redditech
+package my.epi.redditech.webViewClient
 
 import android.content.Intent
 import android.net.Uri

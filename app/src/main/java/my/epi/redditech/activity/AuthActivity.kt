@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.webkit.WebView
-import my.epi.redditech.LoginWebViewClient
+import my.epi.redditech.webViewClient.LoginWebViewClient
 import my.epi.redditech.R
 import my.epi.redditech.network.ApiClient
 

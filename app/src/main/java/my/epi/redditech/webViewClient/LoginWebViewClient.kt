@@ -1,13 +1,10 @@
-package my.epi.redditech
+package my.epi.redditech.webViewClient
 
-import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import android.text.TextUtils
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import my.epi.redditech.activity.AuthActivity
-import my.epi.redditech.activity.StartActivity
 
 internal class LoginWebViewClient(val primaryUrl: String, val context: AuthActivity) : WebViewClient() {
     private var token: String = ""

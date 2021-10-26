@@ -12,7 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import my.epi.redditech.MediaWebViewClient
+import my.epi.redditech.webViewClient.MediaWebViewClient
 import my.epi.redditech.R
 import my.epi.redditech.activity.PostPageActivity
 import my.epi.redditech.activity.SubredditActivity
