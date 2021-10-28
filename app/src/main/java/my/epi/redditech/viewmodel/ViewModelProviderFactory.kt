@@ -32,6 +32,9 @@ class ViewModelProviderFactory(
         if (modelClass.isAssignableFrom(PostPageViewModel::class.java)) {
             return PostPageViewModel(this.appRepository) as T
         }
+        if (modelClass.isAssignableFrom(AuthViewModel::class.java)) {
+            return AuthViewModel(this.appRepository) as T
+        }
         throw IllegalArgumentException("ViewModel Not Found")
     }
 }
