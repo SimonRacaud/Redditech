@@ -51,5 +51,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include_filters" />
 
+    <include layout="@layout/loading_container" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

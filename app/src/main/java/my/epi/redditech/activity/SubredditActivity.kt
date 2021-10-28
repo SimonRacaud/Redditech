@@ -28,6 +28,7 @@ class SubredditActivity : AppCompatActivity() {
     private lateinit var subredditName : String
     private var subState = false
     private var postFilter = arrayOf("rising", "hot", "new", "top")
+    private lateinit var loadingManager: LoadingManager
 
     private fun changeStatusButtonSub() {
         val subscribeButton = findViewById<Button>(R.id.subscribe_button)
@@ -41,6 +42,7 @@ class SubredditActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_subreddit)
+        loadingManager = LoadingManager(supportFragmentManager)
 
         binding = DataBindingUtil.setContentView(
             this, R.layout.activity_subreddit
@@ -118,6 +120,7 @@ class SubredditActivity : AppCompatActivity() {
         val repository = AppRepository()
         val factory = ViewModelProviderFactory(repository)
 
+        loadingManager.stopLoading()
         viewModel = ViewModelProvider(this, factory).get(SubredditViewModel::class.java)
         viewModel.subredditInfo.observe(this, {
             binding.lifecycleOwner = this
@@ -155,12 +158,14 @@ class SubredditActivity : AppCompatActivity() {
         })
         viewModel.errorMessage.observe(this, {
             //TODO use it
+            loadingManager.stopLoading()
         })
         viewModel.loading.observe(this, {
             if (it) {
                 //TODO: SHOW PROGRESS BAR
             } else {
                 //TODO: mask progress
+                loadingManager.stopLoading()
             }
         })
         viewModel.getInfoSubreddit(pageName)

@@ -14,14 +14,15 @@ import my.epi.redditech.viewmodel.ViewModelProviderFactory
 import android.widget.ImageView
 import android.widget.Switch
 import android.widget.CompoundButton
+import androidx.appcompat.app.AppCompatActivity
 import my.epi.redditech.model.api.PrefModel
 import my.epi.redditech.model.api.UserModel
 import my.epi.redditech.viewmodel.SettingsViewModel
 import java.lang.Exception
 
 
-class SettingsActivity : AbstractLoadingActivity() {
-
+class SettingsActivity : AppCompatActivity() {
+    private lateinit var loadingManager: LoadingManager
     private lateinit var userViewModel: UserViewModel
     private lateinit var prefViewModel: SettingsViewModel
     private lateinit var binding: ActivitySettingsBinding
@@ -31,6 +32,7 @@ class SettingsActivity : AbstractLoadingActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+        loadingManager = LoadingManager(supportFragmentManager)
 
         binding = DataBindingUtil.setContentView(
             this, R.layout.activity_settings
@@ -110,7 +112,7 @@ class SettingsActivity : AbstractLoadingActivity() {
     }
 
     private fun getUser() {
-        this.startLoading()
+        loadingManager.startLoading()
         userViewModel.user.observe(this, {
             /// Loading finished
             binding.user = it
@@ -124,19 +126,19 @@ class SettingsActivity : AbstractLoadingActivity() {
         })
         userViewModel.errorMessage.observe(this, {
             //TODO: use it (error loading)
-            this.stopLoading()
+            loadingManager.stopLoading()
         })
         userViewModel.loading.observe(this, {
             if (it) {
                 //TODO: it show progress bar (loading...)
             } else {
-                this.stopLoading()
+                loadingManager.stopLoading()
             }
         })
     }
 
     private fun getSettings() {
-        this.startLoading()
+        loadingManager.startLoading()
         prefViewModel.preferences.observe(this, {
             /// Loading finished
             binding.preferences = it
@@ -144,13 +146,13 @@ class SettingsActivity : AbstractLoadingActivity() {
         })
         userViewModel.errorMessage.observe(this, {
             //TODO: use it (error loading)
-            this.stopLoading()
+            loadingManager.stopLoading()
         })
         userViewModel.loading.observe(this, {
             if (it) {
                 //TODO: it show progress bar (loading...)
             } else {
-                this.stopLoading()
+                loadingManager.stopLoading()
             }
         })
     }

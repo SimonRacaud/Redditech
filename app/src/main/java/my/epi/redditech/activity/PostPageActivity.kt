@@ -21,13 +21,14 @@ import my.epi.redditech.viewmodel.ViewModelProviderFactory
 import my.epi.redditech.webViewClient.MediaWebViewClient
 
 class PostPageActivity : AppCompatActivity() {
-
+    private lateinit var loadingManager: LoadingManager
     private lateinit var viewModel: PostPageViewModel
     private lateinit var postInfo: PostModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_post_page)
+        loadingManager = LoadingManager(supportFragmentManager)
 
         /// BACK BUTTON
         val button = findViewById<Button>(R.id.back_button)
@@ -51,17 +52,20 @@ class PostPageActivity : AppCompatActivity() {
 
     private fun fetchData(postName: String) {
         this.setupViewModel()
+        loadingManager.startLoading()
         viewModel.post.observe(this, {
             this.buildPage(it.data.children[0].data)
         })
         viewModel.errorMessage.observe(this, {
             //TODO use it
+            loadingManager.stopLoading()
         })
         viewModel.loading.observe(this, {
             if (it) {
                 //TODO: it show progress bar (loading...)
             } else {
                 //TODO: mask progress
+                loadingManager.stopLoading()
             }
         })
         viewModel.getPostPage(postName)

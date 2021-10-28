@@ -179,15 +179,7 @@
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/loading_frag_container"
-            android:name="my.epi.redditech.fragment.LoadingFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <include layout="@layout/loading_container" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
