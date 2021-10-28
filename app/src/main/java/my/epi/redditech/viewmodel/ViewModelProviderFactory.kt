@@ -2,6 +2,7 @@ package my.epi.redditech.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import my.epi.redditech.activity.PostPageActivity
 import my.epi.redditech.repository.AppRepository
 import java.lang.IllegalArgumentException
 
@@ -27,6 +28,12 @@ class ViewModelProviderFactory(
         }
         if (modelClass.isAssignableFrom(SubredditViewModel::class.java)) {
             return SubredditViewModel(this.appRepository) as T
+        }
+        if (modelClass.isAssignableFrom(PostPageViewModel::class.java)) {
+            return PostPageViewModel(this.appRepository) as T
+        }
+        if (modelClass.isAssignableFrom(AuthViewModel::class.java)) {
+            return AuthViewModel(this.appRepository) as T
         }
         throw IllegalArgumentException("ViewModel Not Found")
     }

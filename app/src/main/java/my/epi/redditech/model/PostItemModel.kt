@@ -20,7 +20,8 @@ class PostItemModel (
     val subredditName: String = "",
     val mediaEmbed: SecureMediaEmbedModel? = null,
     val media: SecureMediaModel? = null,
-    val domain: String? = null
+    val domain: String? = null,
+    val name: String = ""
 ) {
     constructor (postModel: PostModel) : this(
         postModel.title,
@@ -38,5 +39,6 @@ class PostItemModel (
         postModel.secure_media_embed,
         postModel.secure_media,
         postModel.domain,
+        postModel.name,
     )
 }

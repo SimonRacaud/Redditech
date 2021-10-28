@@ -1,16 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="10dp"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".fragment.PostContentFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:textStyle="bold"
+        style="@style/SmallTitleTextStyle"
+        android:id="@+id/post_title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:text="POST CONTENT HERE" />
+        android:text="POST TITLE" />
+    <Button
+        android:id="@+id/post_redirect_button"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        style="@style/SecondaryButtonStyleSmall"
+        android:background="@drawable/button_background_blue"
+        android:text="@string/post_redirection_button_default"
+    />
+    <WebView
+        android:id="@+id/post_media_view"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/post_redirect_button" />
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/post_picture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:visibility="gone"
+        tools:src="@tools:sample/backgrounds/scenic" />
+    <TextView
+        android:id="@+id/post_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:text="POST CONTENT HERE"
+        android:scrollbars = "vertical"/>
+
+</LinearLayout>

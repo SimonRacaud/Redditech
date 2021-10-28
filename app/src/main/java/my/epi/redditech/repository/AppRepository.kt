@@ -9,6 +9,8 @@ import retrofit2.Response
 import retrofit2.http.Path
 
 class AppRepository {
+    suspend fun getToken(code : String) = ApiClient.oauthReddit.getToken(code)
+
     suspend fun getProfile() = ApiClient.apiReddit.getProfile()
 
     suspend fun getSettings() = ApiClient.apiReddit.getSettings()
@@ -27,4 +29,6 @@ class AppRepository {
     suspend fun getSubredditSearch(query: String) = ApiClient.apiReddit.getSubredditSearch(query)
 
     suspend fun subscribe(query: String, name: String) = ApiClient.apiReddit.subscribe(query, name)
+
+    suspend fun getPostInformation(name : String) = ApiClient.apiReddit.getPostInformation(name)
 }

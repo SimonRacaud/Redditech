@@ -39,4 +39,7 @@ interface ApiReddit {
 
     @POST("/api/subscribe")
     suspend fun subscribe(@Query("action") query : String, @Query("sr_name") name : String): Response<Void>
+
+    @GET("/by_id/{name}")
+    suspend fun getPostInformation(@Path("name") name : String): Response<ListModel<PostModel>>
 }

@@ -45,7 +45,9 @@
         android:background="@drawable/button_background_blue"
         app:layout_constraintBottom_toBottomOf="@+id/back_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/back_button" />
+        app:layout_constraintTop_toTopOf="@+id/back_button"
+        android:visibility="visible"
+        android:enabled="true"/>
 
     <androidx.cardview.widget.CardView
         android:layout_width="40dp"
