@@ -50,7 +50,7 @@ class PostListAdapter(
         if (context != null && !current.thumbnail.isEmpty()) {
             Glide.with(context).load(Uri.parse(current.thumbnail)).into(holder.icon)
         }
-        holder.itemView.setOnClickListener { onClickEventView(current.subredditName) }
+        holder.itemView.setOnClickListener { onClickEventView(current.subredditName, current.name) }
         holder.subredditName.text = current.subredditName
         holder.subredditName.setOnClickListener { onClickSubreddit(current.subredditName) }
         holder.author.text = current.author
@@ -100,9 +100,10 @@ class PostListAdapter(
         }
     }
 
-    private fun onClickEventView(pageName: String) {
+    private fun onClickEventView(pageName: String, postName : String) {
         val intent = Intent(context, PostPageActivity::class.java)
         intent.putExtra("post", pageName)
+        intent.putExtra("postName", postName)
         context?.startActivity(intent)
     }
 

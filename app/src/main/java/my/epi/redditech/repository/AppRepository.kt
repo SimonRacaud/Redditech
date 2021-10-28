@@ -27,4 +27,6 @@ class AppRepository {
     suspend fun getSubredditSearch(query: String) = ApiClient.apiReddit.getSubredditSearch(query)
 
     suspend fun subscribe(query: String, name: String) = ApiClient.apiReddit.subscribe(query, name)
+
+    suspend fun getPostInformation(name : String) = ApiClient.apiReddit.getPostInformation(name)
 }
