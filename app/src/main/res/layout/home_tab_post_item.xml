@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginBottom="10dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp">
 
     <View
         android:id="@+id/view"
@@ -52,78 +52,86 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="@+id/postIcon"
         app:layout_constraintStart_toEndOf="@+id/subreddit_name"
-        app:layout_constraintTop_toTopOf="@+id/postIcon"
-        >
+        app:layout_constraintTop_toTopOf="@+id/postIcon">
+
         <TextView
             style="@style/MiniGrayStyle"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
             android:layout_marginEnd="5dp"
             android:breakStrategy="simple"
-            android:layout_marginStart="6dp"
             android:text="@string/post_item_posted_by"
             android:textAppearance="?attr/textAppearanceListItem" />
+
         <TextView
             android:id="@+id/author"
             style="@style/MiniGrayStyle"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:breakStrategy="simple"
             android:text="u/simon"
             android:textAppearance="?attr/textAppearanceListItem" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/content"
-        style="@style/DescriptionStyle"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginTop="5dp"
-        android:textAppearance="?attr/textAppearanceListItem"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postIcon" />
-
-    <Button
-        android:id="@+id/redirect_button"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginTop="8dp"
-        android:visibility="gone"
-        style="@style/SecondaryButtonStyleSmall"
-        android:background="@drawable/button_background_blue"
-        android:text="@string/post_redirection_button_default"
-        app:layout_constraintStart_toStartOf="@+id/postIcon"
-        app:layout_constraintTop_toBottomOf="@+id/content"
-        />
-
-    <WebView
-        android:id="@+id/media_view"
-        android:layout_width="0dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/redirect_button" />
-
-    <ImageView
-        android:id="@+id/picture"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/redirect_button"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/postIcon"
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/content"
+            style="@style/DescriptionStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:textAppearance="?attr/textAppearanceListItem" />
+
+        <Button
+            android:id="@+id/redirect_button"
+            style="@style/SecondaryButtonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            android:background="@drawable/button_background_blue"
+            android:text="@string/post_redirection_button_default"
+             />
+
+        <LinearLayout
+            android:id="@+id/media_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:visibility="gone"
+            android:orientation="vertical"
+            >
+            <WebView
+                android:id="@+id/media_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/picture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:visibility="gone"
+            android:maxHeight="300dp"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
