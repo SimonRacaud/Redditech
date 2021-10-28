@@ -9,10 +9,12 @@ import android.view.View
 import android.webkit.WebView
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import my.epi.redditech.R
+import my.epi.redditech.model.PostItemModel
 import my.epi.redditech.model.api.PostModel
 import my.epi.redditech.repository.AppRepository
 import my.epi.redditech.utils.Utils
@@ -103,52 +105,63 @@ class PostPageActivity : AppCompatActivity() {
     }
 
     private fun buildContent(postInfo: PostModel) {
+        val current = PostItemModel(postInfo)
         var postTitle = findViewById<TextView>(R.id.post_title)
         var postContent = findViewById<TextView>(R.id.post_content)
-        var picture = findViewById<ImageView>(R.id.post_picture)
-        var media = findViewById<WebView>(R.id.post_media_view)
-        var redirectButton = findViewById<Button>(R.id.post_redirect_button)
+        var picture = findViewById<ImageView>(R.id.picture)
+        var media = findViewById<WebView>(R.id.media_view)
+        var redirectButton = findViewById<Button>(R.id.redirect_button)
+        var media_view_container = findViewById<LinearLayout>(R.id.media_view_container)
 
         postTitle.text = postInfo.title
-
-        if (postInfo.secure_media_embed != null && !postInfo.secure_media_embed.media_domain_url.isNullOrEmpty()
-            && picture.visibility == View.GONE
-        ) {
-            media.loadUrl(postInfo.secure_media_embed.media_domain_url)
-            media.settings?.allowContentAccess = true
-            media.settings?.allowFileAccess = true
-            media.settings?.javaScriptEnabled = true
-            media.webViewClient = MediaWebViewClient()
-            media.visibility = View.VISIBLE
-        }
-        if (postInfo.secure_media != null && postInfo.secure_media.reddit_video != null && postInfo.secure_media.reddit_video.fallback_url != ""
-            && picture.visibility == View.GONE) {
-            media.loadUrl(postInfo.secure_media.reddit_video.fallback_url)
-            media.settings?.allowContentAccess = true
-            media.settings?.allowFileAccess = true
-            media.settings?.javaScriptEnabled = true
-            media.webViewClient = MediaWebViewClient()
-            media.visibility = View.VISIBLE
-        }
-        if (!postInfo.url_overridden_by_dest.isNullOrEmpty()) {
-            val url = Uri.parse(postInfo.url_overridden_by_dest)
-            if (url.host.isNullOrEmpty() == false) {
-                redirectButton.text = "Go to ${url.host}"
-            }
-            redirectButton.setOnClickListener { onClickRedirect(postInfo.url_overridden_by_dest)}
-            redirectButton.visibility = View.VISIBLE
-        }
-        if (!postInfo.url_overridden_by_dest.isNullOrEmpty() && media.visibility == View.GONE) {
-            val extension = postInfo.url_overridden_by_dest.substringAfterLast('.')
-
-            if (extension == "png" || extension == "jpg") {
-                Glide.with(this).load(Uri.parse(postInfo.url_overridden_by_dest)).into(picture)
-                picture.visibility = View.VISIBLE
-            }
-        }
         postContent.text = postInfo.selftext
         postContent.movementMethod = ScrollingMovementMethod()
 
+        /// BUTTON
+        if (!current.redirectUrl.isNullOrEmpty()) {
+            val url = Uri.parse(current.redirectUrl)
+            if (url.host.isNullOrEmpty() == false) {
+                redirectButton.text = "Go to ${url.host}"
+            }
+            redirectButton.setOnClickListener { onClickRedirect(current.redirectUrl) }
+            redirectButton.visibility = View.VISIBLE
+        }
+        if (current.preview != null && current.preview.reddit_video_preview != null
+            && current.preview.reddit_video_preview.fallback_url != "") {
+            /// VIDEO PREVIEW
+            this.loadMedia(
+                current.preview.reddit_video_preview.fallback_url,
+                media,
+                media_view_container)
+            println("SHOW PREVIEW VIDEO : ${current.preview.reddit_video_preview.fallback_url}")
+        } else if (current.mediaEmbed != null && !current.mediaEmbed.media_domain_url.isNullOrEmpty()) {
+            /// EMBED MEDIA
+            this.loadMedia(current.mediaEmbed.media_domain_url, media, media_view_container)
+        } else if (current.media != null && current.media.reddit_video != null
+            && current.media.reddit_video.fallback_url != "") {
+            /// MEDIA
+            this.loadMedia(current.media.reddit_video.fallback_url, media, media_view_container)
+        }
+        // PICTURE
+        if (!current.redirectUrl.isNullOrEmpty()
+            && media_view_container.visibility == View.GONE
+        ) {
+            val extension = current.redirectUrl.substringAfterLast('.')
+
+            if (extension == "png" || extension == "jpg" || extension == "gif") {
+                Glide.with(this).load(Uri.parse(current.redirectUrl)).into(picture)
+                picture.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun loadMedia(url: String, media: WebView, container: LinearLayout) {
+        media.loadUrl(url)
+        media.settings?.allowContentAccess = true
+        media.settings?.allowFileAccess = true
+        media.settings?.javaScriptEnabled = true
+        media.webViewClient = MediaWebViewClient()
+        container.visibility = View.VISIBLE
     }
 
     private fun onClickRedirect(url: String) {
