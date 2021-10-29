@@ -8,6 +8,7 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import my.epi.redditech.activity.AuthActivity
+import my.epi.redditech.utils.ErrorMessage
 
 internal class LoginWebViewClient(val primaryUrl: String, val context: AuthActivity) : WebViewClient() {
     private var code: String = ""
@@ -74,8 +75,11 @@ internal class LoginWebViewClient(val primaryUrl: String, val context: AuthActiv
     ) {
         super.onReceivedError(view, request, error)
 
-        Handler(Looper.getMainLooper()).postDelayed({
+        ErrorMessage.show(
+            context,
+            error?.description.toString()
+        ) {
             context.finish()
-        }, 1000)
+        }
     }
 }

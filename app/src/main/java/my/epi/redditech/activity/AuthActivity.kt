@@ -1,5 +1,6 @@
 package my.epi.redditech.activity
 
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,9 @@ import my.epi.redditech.network.ApiClient
 import my.epi.redditech.repository.AppRepository
 import my.epi.redditech.viewmodel.AuthViewModel
 import my.epi.redditech.viewmodel.ViewModelProviderFactory
+import android.content.DialogInterface
+import my.epi.redditech.utils.ErrorMessage
+
 
 class AuthActivity : AppCompatActivity() {
 
@@ -45,13 +49,13 @@ class AuthActivity : AppCompatActivity() {
             startActivity(intent)
         })
         viewModel.errorMessage.observe(this, {
-            //TODO use it
+            ErrorMessage.show(this, it)
         })
         viewModel.loading.observe(this, {
             if (it) {
-                //TODO: it show progress bar (loading...)
+                // it show progress bar (loading...)
             } else {
-                //TODO: mask progress
+                // mask progress
             }
         })
         viewModel.getToken(code)

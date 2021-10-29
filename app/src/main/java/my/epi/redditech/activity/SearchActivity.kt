@@ -11,6 +11,7 @@ import my.epi.redditech.R
 import my.epi.redditech.adapter.SubredditListAdapter
 import my.epi.redditech.model.SubredditItemModel
 import my.epi.redditech.repository.AppRepository
+import my.epi.redditech.utils.ErrorMessage
 import my.epi.redditech.viewmodel.SearchViewModel
 import my.epi.redditech.viewmodel.ViewModelProviderFactory
 
@@ -68,13 +69,13 @@ class SearchActivity : AppCompatActivity() {
             recyclerView.adapter = SubredditListAdapter(this, list, R.layout.home_tab_subreddit_item)
         })
         viewModel.errorMessage.observe(this, {
-            //TODO use it
+            ErrorMessage.show(this, it)
         })
         viewModel.loading.observe(this, {
             if (it) {
-                //TODO: SHOW PROGRESS BAR
+                // SHOW PROGRESS BAR
             } else {
-                //TODO: mask progress
+                // mask progress
             }
         })
         if (query.isEmpty()) {

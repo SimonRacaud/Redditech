@@ -78,7 +78,6 @@ class PostListAdapter(
                 current.preview.reddit_video_preview.fallback_url,
                 holder.media,
                 holder.media_view_container)
-            println("SHOW PREVIEW VIDEO : ${current.preview.reddit_video_preview.fallback_url}")
         } else if (current.mediaEmbed != null && !current.mediaEmbed.media_domain_url.isNullOrEmpty()) {
             /// EMBED MEDIA
             this.loadMedia(current.mediaEmbed.media_domain_url, holder.media, holder.media_view_container)

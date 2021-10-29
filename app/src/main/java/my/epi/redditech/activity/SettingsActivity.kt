@@ -17,6 +17,7 @@ import android.widget.CompoundButton
 import androidx.appcompat.app.AppCompatActivity
 import my.epi.redditech.model.api.PrefModel
 import my.epi.redditech.model.api.UserModel
+import my.epi.redditech.utils.ErrorMessage
 import my.epi.redditech.utils.LoadingManager
 import my.epi.redditech.viewmodel.SettingsViewModel
 import java.lang.Exception
@@ -126,12 +127,12 @@ class SettingsActivity : AppCompatActivity() {
             userModel = binding.user
         })
         userViewModel.errorMessage.observe(this, {
-            //TODO: use it (error loading)
+            ErrorMessage.show(this, it)
             loadingManager.stopLoading()
         })
         userViewModel.loading.observe(this, {
             if (it) {
-                //TODO: it show progress bar (loading...)
+                // it show progress bar (loading...)
             } else {
                 loadingManager.stopLoading()
             }
@@ -146,12 +147,12 @@ class SettingsActivity : AppCompatActivity() {
             prefModel = binding.preferences
         })
         userViewModel.errorMessage.observe(this, {
-            //TODO: use it (error loading)
+            ErrorMessage.show(this, it)
             loadingManager.stopLoading()
         })
         userViewModel.loading.observe(this, {
             if (it) {
-                //TODO: it show progress bar (loading...)
+                // it show progress bar (loading...)
             } else {
                 loadingManager.stopLoading()
             }

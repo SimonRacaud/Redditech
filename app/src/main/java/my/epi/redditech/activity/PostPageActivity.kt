@@ -18,6 +18,7 @@ import my.epi.redditech.model.PostItemModel
 import my.epi.redditech.model.api.PostModel
 import my.epi.redditech.model.api.SubredditModel
 import my.epi.redditech.repository.AppRepository
+import my.epi.redditech.utils.ErrorMessage
 import my.epi.redditech.utils.LoadingManager
 import my.epi.redditech.utils.Utils
 import my.epi.redditech.viewmodel.PostPageViewModel
@@ -62,14 +63,13 @@ class PostPageActivity : AppCompatActivity() {
             this.buildPage(postInfo)
         })
         viewModel.errorMessage.observe(this, {
-            //TODO use it
             loadingManager.stopLoading()
+            ErrorMessage.show(this, it)
         })
         viewModel.loading.observe(this, {
             if (it) {
-                //TODO: it show progress bar (loading...)
+                // it show progress bar (loading...)
             } else {
-                //TODO: mask progress
                 loadingManager.stopLoading()
             }
         })
@@ -82,13 +82,13 @@ class PostPageActivity : AppCompatActivity() {
             this.buildHeader(subredditInfo)
         })
         viewModel.errorMessage.observe(this, {
-            //TODO use it
+            ErrorMessage.show(this, it)
         })
         viewModel.loading.observe(this, {
             if (it) {
-                //TODO use it
+                // use it
             } else {
-                //TODO: mask progress
+                // mask progress
             }
         })
         viewModel.getInfoSubreddit(subredditName)
@@ -164,7 +164,6 @@ class PostPageActivity : AppCompatActivity() {
                 current.preview.reddit_video_preview.fallback_url,
                 media,
                 media_view_container)
-            println("SHOW PREVIEW VIDEO : ${current.preview.reddit_video_preview.fallback_url}")
         } else if (current.mediaEmbed != null && !current.mediaEmbed.media_domain_url.isNullOrEmpty()) {
             /// EMBED MEDIA
             this.loadMedia(current.mediaEmbed.media_domain_url, media, media_view_container)

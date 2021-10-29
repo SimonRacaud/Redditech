@@ -14,6 +14,7 @@ import my.epi.redditech.databinding.ActivitySubredditBinding
 import my.epi.redditech.model.PostItemModel
 import my.epi.redditech.model.api.SubredditModel
 import my.epi.redditech.repository.AppRepository
+import my.epi.redditech.utils.ErrorMessage
 import my.epi.redditech.utils.LoadingManager
 import my.epi.redditech.utils.Utils
 import my.epi.redditech.viewmodel.SubredditViewModel
@@ -104,13 +105,13 @@ class SubredditActivity : AppCompatActivity() {
             recyclerView.adapter = PostListAdapter(this, postList, R.layout.home_tab_post_item)
         })
         viewModel.errorMessage.observe(this, {
-            //TODO use it
+            ErrorMessage.show(this, it)
         })
         viewModel.loading.observe(this, {
             if (it) {
-                //TODO: SHOW PROGRESS BAR
+                // SHOW PROGRESS BAR
             } else {
-                //TODO: mask progress
+                // mask progress
             }
         })
         viewModel.getSubredditPosts(pageName, filter)
@@ -157,14 +158,14 @@ class SubredditActivity : AppCompatActivity() {
             }
         })
         viewModel.errorMessage.observe(this, {
-            //TODO use it
+            ErrorMessage.show(this, it)
             loadingManager.stopLoading()
         })
         viewModel.loading.observe(this, {
             if (it) {
-                //TODO: SHOW PROGRESS BAR
+                // SHOW PROGRESS BAR
             } else {
-                //TODO: mask progress
+                // mask progress
                 loadingManager.stopLoading()
             }
         })

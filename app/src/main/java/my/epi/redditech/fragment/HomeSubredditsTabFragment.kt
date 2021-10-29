@@ -15,8 +15,7 @@ import my.epi.redditech.repository.AppRepository
 import my.epi.redditech.viewmodel.HomeSubredditsViewModel
 import my.epi.redditech.viewmodel.ViewModelProviderFactory
 import androidx.recyclerview.widget.SimpleItemAnimator
-
-
+import my.epi.redditech.utils.ErrorMessage
 
 
 /**
@@ -60,13 +59,13 @@ class HomeSubredditsTabFragment : Fragment() {
             }
         })
         viewModel.errorMessage.observe(viewLifecycleOwner, {
-            //TODO use it
+            this.parentFragment?.activity?.let { it1 -> ErrorMessage.show(it1, it) }
         })
         viewModel.loading.observe(viewLifecycleOwner, {
             if (it) {
-                //TODO: SHOW PROGRESS BAR
+                // SHOW PROGRESS BAR
             } else {
-                //TODO: mask progress
+                // mask progress
                 recyclerView?.adapter = SubredditListAdapter(this.requireContext(), subList, R.layout.home_tab_subreddit_item)
             }
         })

@@ -57,8 +57,7 @@ class SubredditListAdapter(
     }
 
     private fun onClickListener(pageName: String) {
-        val intent = Intent(context, SubredditActivity::class.java) // TODO : Go to subbred page
-
+        val intent = Intent(context, SubredditActivity::class.java)
         intent.putExtra("subredditName", pageName)
         context?.startActivity(intent)
     }
