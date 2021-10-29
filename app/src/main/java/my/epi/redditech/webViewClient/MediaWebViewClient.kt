@@ -31,6 +31,7 @@ internal class MediaWebViewClient : WebViewClient() {
         super.onReceivedError(view, request, error)
 
         // Hide on error
-        view?.visibility = View.GONE
+        //view?.visibility = View.GONE
+        println("ERROR LOADING MEDIA CONTENT ${error?.description.toString()}")
     }
 }
