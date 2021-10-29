@@ -21,6 +21,7 @@ internal class LoginWebViewClient(val primaryUrl: String, val context: AuthActiv
             return false // This is my web site, so do not override; let my WebView load the page
         } else if (uri.host == "www.reddit.com" && uri?.path == "/") {
             view?.loadUrl(primaryUrl) // go back to authorization page after login
+            return false
         }
         // Extract auth token
         val codeParams = uri.getQueryParameters("code") ?: null

@@ -111,7 +111,7 @@ class PostListAdapter(
 
     private fun onClickEventView(pageName: String, postName : String) {
         val intent = Intent(context, PostPageActivity::class.java)
-        intent.putExtra("post", pageName)
+        intent.putExtra("subredditName", pageName)
         intent.putExtra("postName", postName)
         context?.startActivity(intent)
     }
