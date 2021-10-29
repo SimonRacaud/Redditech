@@ -1,8 +1,10 @@
 package my.epi.redditech.webViewClient
 
 import android.net.Uri
-import android.text.TextUtils
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
+import android.webkit.WebResourceError
+import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import my.epi.redditech.activity.AuthActivity
@@ -63,5 +65,17 @@ internal class LoginWebViewClient(val primaryUrl: String, val context: AuthActiv
                     })()"""
             )
         }
+    }
+
+    override fun onReceivedError(
+        view: WebView?,
+        request: WebResourceRequest?,
+        error: WebResourceError?
+    ) {
+        super.onReceivedError(view, request, error)
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            context.finish()
+        }, 1000)
     }
 }

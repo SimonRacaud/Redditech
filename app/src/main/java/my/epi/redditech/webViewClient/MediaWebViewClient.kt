@@ -2,6 +2,11 @@ package my.epi.redditech.webViewClient
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Handler
+import android.os.Looper
+import android.view.View
+import android.webkit.WebResourceError
+import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 
@@ -16,5 +21,16 @@ internal class MediaWebViewClient : WebViewClient() {
         } else {
             false
         }
+    }
+
+    override fun onReceivedError(
+        view: WebView?,
+        request: WebResourceRequest?,
+        error: WebResourceError?
+    ) {
+        super.onReceivedError(view, request, error)
+
+        // Hide on error
+        view?.visibility = View.GONE
     }
 }
