@@ -120,7 +120,7 @@ class SubredditActivity : AppCompatActivity() {
         val repository = AppRepository()
         val factory = ViewModelProviderFactory(repository)
 
-        loadingManager.stopLoading()
+        loadingManager.startLoading()
         viewModel = ViewModelProvider(this, factory).get(SubredditViewModel::class.java)
         viewModel.subredditInfo.observe(this, {
             binding.lifecycleOwner = this
