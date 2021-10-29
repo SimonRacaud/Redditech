@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide
 import my.epi.redditech.R
 import my.epi.redditech.model.PostItemModel
 import my.epi.redditech.model.api.PostModel
+import my.epi.redditech.model.api.SubredditModel
 import my.epi.redditech.repository.AppRepository
 import my.epi.redditech.utils.Utils
 import my.epi.redditech.viewmodel.PostPageViewModel
@@ -26,6 +27,7 @@ class PostPageActivity : AppCompatActivity() {
     private lateinit var loadingManager: LoadingManager
     private lateinit var viewModel: PostPageViewModel
     private lateinit var postInfo: PostModel
+    private lateinit var subredditInfo: SubredditModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +42,8 @@ class PostPageActivity : AppCompatActivity() {
         /// Get Parameters
         val intent = getIntent()
         val postName = intent.extras?.get("postName").toString()
-        this.fetchData(postName)
+        val subredditName = intent.extras?.get("subredditName").toString()
+        this.fetchData(postName, subredditName.drop(2))
     }
 
 
@@ -52,11 +55,10 @@ class PostPageActivity : AppCompatActivity() {
 
     }
 
-    private fun fetchData(postName: String) {
-        this.setupViewModel()
-        loadingManager.startLoading()
+    private fun getPostContent(postName: String) {
         viewModel.post.observe(this, {
-            this.buildPage(it.data.children[0].data)
+            postInfo = it.data.children[0].data
+            this.buildPage(postInfo)
         })
         viewModel.errorMessage.observe(this, {
             //TODO use it
@@ -73,6 +75,45 @@ class PostPageActivity : AppCompatActivity() {
         viewModel.getPostPage(postName)
     }
 
+    private fun getSubredditInfo(subredditName: String) {
+        viewModel.subredditInfo.observe(this, {
+            subredditInfo = it.data
+            this.buildHeader(subredditInfo)
+        })
+        viewModel.errorMessage.observe(this, {
+            //TODO use it
+        })
+        viewModel.loading.observe(this, {
+            if (it) {
+                //TODO use it
+            } else {
+                //TODO: mask progress
+            }
+        })
+        viewModel.getInfoSubreddit(subredditName)
+    }
+
+    private fun fetchData(postName: String, subredditName: String) {
+        this.setupViewModel()
+        loadingManager.startLoading()
+        this.getPostContent(postName)
+        this.getSubredditInfo(subredditName)
+    }
+
+    private fun buildHeader(subredditInfo: SubredditModel) {
+        val headerImg = findViewById<ImageView>(R.id.subredit_img_header)
+        val iconImg = findViewById<ImageView>(R.id.community_icon)
+
+        var bannerUrl = subredditInfo.banner_background_image
+        bannerUrl = bannerUrl?.replace("&amp;", "&")
+        Glide.with(this).load(bannerUrl).into(headerImg)
+
+
+        var comunityIconUrl = subredditInfo.community_icon
+        comunityIconUrl = comunityIconUrl?.replace("&amp;", "&")
+        Glide.with(this).load(comunityIconUrl).into(iconImg)
+    }
+
     private fun buildPage(postInfo: PostModel) {
         buildInfo(postInfo)
         buildContent(postInfo)
@@ -84,17 +125,6 @@ class PostPageActivity : AppCompatActivity() {
         var author = findViewById<TextView>(R.id.subreddit_desc)
         var subscriberNumber = findViewById<TextView>(R.id.header_nb_subscribers)
         var buttonSubscribe = findViewById<Button>(R.id.subscribe_button)
-        val headerImg = findViewById<ImageView>(R.id.subredit_img_header)
-        val iconImg = findViewById<ImageView>(R.id.community_icon)
-
-        /*var bannerUrl = //banner_background_image
-        bannerUrl = bannerUrl?.replace("&amp;", "&")
-        Glide.with(this).load(bannerUrl).into(headerImg)
-
-
-        var comunityIconUrl = //data.community_icon
-        comunityIconUrl = comunityIconUrl?.replace("&amp;", "&")
-        Glide.with(this).load(comunityIconUrl).into(iconImg)*/
 
         subredditName.text = postInfo.subreddit_name_prefixed
         postDate.text = Utils.formatDate(postInfo.created_utc.toLong())
