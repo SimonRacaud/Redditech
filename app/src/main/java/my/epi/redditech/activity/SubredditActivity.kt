@@ -2,7 +2,6 @@ package my.epi.redditech.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.databinding.DataBindingUtil
@@ -15,6 +14,7 @@ import my.epi.redditech.databinding.ActivitySubredditBinding
 import my.epi.redditech.model.PostItemModel
 import my.epi.redditech.model.api.SubredditModel
 import my.epi.redditech.repository.AppRepository
+import my.epi.redditech.utils.LoadingManager
 import my.epi.redditech.utils.Utils
 import my.epi.redditech.viewmodel.SubredditViewModel
 import my.epi.redditech.viewmodel.ViewModelProviderFactory

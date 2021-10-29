@@ -17,6 +17,7 @@ import android.widget.CompoundButton
 import androidx.appcompat.app.AppCompatActivity
 import my.epi.redditech.model.api.PrefModel
 import my.epi.redditech.model.api.UserModel
+import my.epi.redditech.utils.LoadingManager
 import my.epi.redditech.viewmodel.SettingsViewModel
 import java.lang.Exception
 
