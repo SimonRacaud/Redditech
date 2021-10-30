@@ -18,9 +18,9 @@ class HomeSubredditsViewModel constructor(private val appRepository:
 
     val loading = MutableLiveData<Boolean>()
 
-    fun getSubscribedSubreddit() {
+    fun getSubscribedSubreddit(next: String) {
         job = CoroutineScope(Dispatchers.IO).launch {
-            val response = appRepository.getSubscribedSubreddit()
+            val response = appRepository.getSubscribedSubreddit(next)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     subredditList.postValue(response.body())

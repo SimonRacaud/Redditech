@@ -16,10 +16,10 @@ interface ApiReddit {
     suspend fun setSettings(@Body pref: PrefModel): Response<PrefModel>
 
     @GET("/subreddits/mine/subscriber")
-    suspend fun getSubscribeSubreddit(): Response<ListModel<SubredditModel>>
+    suspend fun getSubscribeSubreddit(@Query("after") after: String): Response<ListModel<SubredditModel>>
 
     @GET("/{sort}")
-    suspend fun getPostsFeed(@Path("sort") sort : String): Response<ListModel<PostModel>>
+    suspend fun getPostsFeed(@Path("sort") sort : String, @Query("after") after: String): Response<ListModel<PostModel>>
 
     @GET("/r/{subreddit}/about")
     suspend fun getSubredditInfo(@Path("subreddit") subreddit : String): Response<ItemModel<SubredditModel>>
@@ -31,7 +31,8 @@ interface ApiReddit {
     suspend fun getSubredditSearch(@Query("q") query: String): Response<ListModel<SubredditModel>>
 
     @GET("{subreddit}/{filter}")
-    suspend fun getSubredditPosts(@Path("subreddit") subreddit: String, @Path("filter") filter: String): Response<ListModel<PostModel>>
+    suspend fun getSubredditPosts(@Path("subreddit") subreddit: String, @Path("filter") filter: String,
+                                  @Query("after") after: String, @Query("limit") limit: String = "10"): Response<ListModel<PostModel>>
 
     @GET("api/subreddit_autocomplete_v2")
     suspend fun getSubredditSearch(@Query("query") query: String,

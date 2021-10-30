@@ -16,13 +16,13 @@ class AppRepository {
     suspend fun getSettings() = ApiClient.apiReddit.getSettings()
     suspend fun setSettings(pref: PrefModel) = ApiClient.apiReddit.setSettings(pref)
 
-    suspend fun getSubscribedSubreddit() = ApiClient.apiReddit.getSubscribeSubreddit()
+    suspend fun getSubscribedSubreddit(next: String) = ApiClient.apiReddit.getSubscribeSubreddit(next)
 
-    suspend fun getPostsFeed(sort : String) = ApiClient.apiReddit.getPostsFeed(sort)
+    suspend fun getPostsFeed(sort : String, nextPost: String) = ApiClient.apiReddit.getPostsFeed(sort, nextPost)
 
     // Subreddit home
     suspend fun getSubredditInfo(subreddit : String) = ApiClient.apiReddit.getSubredditInfo(subreddit)
-    suspend fun getSubredditPosts(subreddit: String, filter: String) = ApiClient.apiReddit.getSubredditPosts(subreddit, filter)
+    suspend fun getSubredditPosts(subreddit: String, filter: String, after: String) = ApiClient.apiReddit.getSubredditPosts(subreddit, filter, after)
 
     // Search
     suspend fun getSubredditList(filter: String) = ApiClient.apiReddit.getSubredditList(filter)

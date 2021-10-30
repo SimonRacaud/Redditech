@@ -15,6 +15,8 @@ import my.epi.redditech.repository.AppRepository
 import my.epi.redditech.viewmodel.HomeSubredditsViewModel
 import my.epi.redditech.viewmodel.ViewModelProviderFactory
 import androidx.recyclerview.widget.SimpleItemAnimator
+import my.epi.redditech.adapter.PostListAdapter
+import my.epi.redditech.model.PostItemModel
 import my.epi.redditech.utils.ErrorMessage
 
 
@@ -24,6 +26,7 @@ import my.epi.redditech.utils.ErrorMessage
 class HomeSubredditsTabFragment : Fragment() {
 
     private lateinit var viewModel: HomeSubredditsViewModel
+    private var next: String? = ""
 
     override fun onStart() {
         super.onStart()
@@ -38,7 +41,25 @@ class HomeSubredditsTabFragment : Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.home_subs_tab_fragment, container, false)
 
+        this.handleInfiniteScroll(view)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
+        recyclerView.adapter =
+            SubredditListAdapter(this.requireContext(), arrayListOf<SubredditItemModel>(), R.layout.home_tab_subreddit_item)
+
         return view;
+    }
+
+    private fun handleInfiniteScroll(view: View) {
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1) && recyclerView.computeVerticalScrollOffset() > 0) {
+                    //fetchData()
+                }
+            }
+        })
     }
 
     private fun fetchData() {
@@ -50,12 +71,30 @@ class HomeSubredditsTabFragment : Fragment() {
         viewModel = ViewModelProvider(this, factory).get(HomeSubredditsViewModel::class.java)
         viewModel.subredditList.observe(viewLifecycleOwner, {
             subList.clear()
-            it.data.children.forEach { element ->
-                element.data.community_icon = element.data.community_icon.toString().replace("&amp;","&")
-                if (element.data.community_icon.toString().isNotEmpty())
-                    subList.add(SubredditItemModel(element.data.display_name_prefixed, element.data.community_icon, element.data.subscribers))
-                else
-                    subList.add(SubredditItemModel(element.data.display_name_prefixed, element.data.icon_img, element.data.subscribers))
+            if (next != it.data.after.toString() && next != null) {
+                next = it.data.after.toString()
+                it.data.children.forEach { element ->
+                    element.data.community_icon =
+                        element.data.community_icon.toString().replace("&amp;", "&")
+                    if (element.data.community_icon.toString().isNotEmpty()) {
+                        subList.add(
+                            SubredditItemModel(
+                                element.data.display_name_prefixed,
+                                element.data.community_icon,
+                                element.data.subscribers
+                            )
+                        )
+                    } else {
+                        subList.add(
+                            SubredditItemModel(
+                                element.data.display_name_prefixed,
+                                element.data.icon_img,
+                                element.data.subscribers
+                            )
+                        )
+                    }
+                }
+                (recyclerView?.adapter as SubredditListAdapter).append(subList)
             }
         })
         viewModel.errorMessage.observe(viewLifecycleOwner, {
@@ -66,9 +105,8 @@ class HomeSubredditsTabFragment : Fragment() {
                 // SHOW PROGRESS BAR
             } else {
                 // mask progress
-                recyclerView?.adapter = SubredditListAdapter(this.requireContext(), subList, R.layout.home_tab_subreddit_item)
             }
         })
-        viewModel.getSubscribedSubreddit()
+        viewModel.getSubscribedSubreddit(this.next!!)
     }
 }

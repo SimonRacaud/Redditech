@@ -28,8 +28,10 @@ import my.epi.redditech.viewmodel.ViewModelProviderFactory
 class HomePostTabFragment : Fragment() {
 
     private lateinit var viewModel: HomePostsViewModel
-    private var postFilter = arrayOf("rising", "hot", "new", "top")
+    private var postFilter = arrayOf("hot", "new", "top", "rising")
     private lateinit var myView: View
+    private var nextPost: String? = ""
+    private var filterPosition: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,15 +40,31 @@ class HomePostTabFragment : Fragment() {
     ): View {
         myView = inflater.inflate(R.layout.home_post_tab_fragment, container, false)
 
-        this.loadContent(myView, "rising")
+        this.handleInfiniteScroll(myView)
         // Filters selector creation
         this.createFilterSelector(myView)
+
+        val recyclerView = myView.findViewById<RecyclerView>(R.id.recycler_view)
+        recyclerView.adapter =
+            PostListAdapter(context, arrayListOf<PostItemModel>(), R.layout.home_tab_post_item)
 
         return myView
     }
 
-    private fun createFilterSelector(view: View)
-    {
+    private fun handleInfiniteScroll(view: View) {
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1)) {
+                    loadContent(view, postFilter[filterPosition], false)
+                }
+            }
+        })
+    }
+
+    private fun createFilterSelector(view: View) {
         val spinner: Spinner = view.findViewById(R.id.filter_selector)
 
         ArrayAdapter.createFromResource(
@@ -57,33 +75,44 @@ class HomePostTabFragment : Fragment() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
         }
-        spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-            }
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                if (postFilter[position].isNotEmpty()) {
-                    
-                    loadContent(myView, postFilter[position])
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                filterPosition = position
+                if (postFilter[filterPosition].isNotEmpty()) {
+                    nextPost = ""
+                    loadContent(myView, postFilter[filterPosition], true)
                 } else {
-                    loadContent(myView, "rising")
+                    nextPost = ""
+                    loadContent(myView, "hot", true)
                 }
             }
         }
     }
 
-    private fun loadContent(view: View, filter: String)
-    {
+    private fun loadContent(view: View, filter: String, reset: Boolean) {
         val postList = arrayListOf<PostItemModel>()
         val repository = AppRepository()
         val factory = ViewModelProviderFactory(repository)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
 
+        if (reset) {
+            (recyclerView.adapter as PostListAdapter).clear()
+        }
         viewModel = ViewModelProvider(this, factory).get(HomePostsViewModel::class.java)
         viewModel.postsList.observe(viewLifecycleOwner, {
             postList.clear()
-            it.data.children.forEach { element ->
-                postList.add(PostItemModel(element.data))
+            if (nextPost != it.data.after.toString() && nextPost != null) {
+                nextPost = it.data.after.toString()
+                it.data.children.forEach { element ->
+                    postList.add(PostItemModel(element.data))
+                }
+                (recyclerView.adapter as PostListAdapter).append(postList)
             }
         })
         viewModel.errorMessage.observe(viewLifecycleOwner, {
@@ -94,9 +123,8 @@ class HomePostTabFragment : Fragment() {
                 // SHOW PROGRESS BAR
             } else {
                 // mask progress
-                recyclerView.adapter = PostListAdapter(this.context, postList, R.layout.home_tab_post_item)
             }
         })
-        viewModel.getPostsFeed(filter)
+        viewModel.getPostsFeed(filter, nextPost!!)
     }
 }

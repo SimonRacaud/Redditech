@@ -52,9 +52,9 @@
     <string name="subreddit_header_def_nb_connected">0</string>
 
     <string-array name="filter_array">
-        <item>💯 Rising</item>
         <item>🔥 Hot</item>
         <item>🏁 New</item>
         <item>💘 Top</item>
+        <item>💯 Rising</item>
     </string-array>
 </resources>

@@ -18,9 +18,9 @@ class HomePostsViewModel constructor(private val appRepository:
 
     val loading = MutableLiveData<Boolean>()
 
-    fun getPostsFeed(sort : String) {
+    fun getPostsFeed(sort : String, nextPost: String) {
         job = CoroutineScope(Dispatchers.IO).launch {
-            val response = appRepository.getPostsFeed(sort)
+            val response = appRepository.getPostsFeed(sort, nextPost)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     postsList.postValue(response.body())
