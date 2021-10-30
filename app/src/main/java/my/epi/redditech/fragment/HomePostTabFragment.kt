@@ -1,7 +1,6 @@
 package my.epi.redditech.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,13 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import my.epi.redditech.R
 import my.epi.redditech.adapter.PostListAdapter
-import my.epi.redditech.adapter.SubredditListAdapter
 import my.epi.redditech.model.PostItemModel
-import my.epi.redditech.model.SubredditItemModel
 import my.epi.redditech.repository.AppRepository
 import my.epi.redditech.utils.ErrorMessage
 import my.epi.redditech.viewmodel.HomePostsViewModel
-import my.epi.redditech.viewmodel.HomeSubredditsViewModel
 import my.epi.redditech.viewmodel.ViewModelProviderFactory
 
 /**
