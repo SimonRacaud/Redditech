@@ -141,6 +141,9 @@ class SubredditActivity : AppCompatActivity() {
             val nbSubscriber = findViewById<TextView>(R.id.header_nb_subscribers)
             nbSubscriber.text = Utils.getFormatNumber(it.data.subscribers)
 
+            val nbConnected = findViewById<TextView>(R.id.header_nb_connected)
+            nbConnected.text = Utils.getFormatNumber(it.data.active_user_count)
+
             val subscribeButton = findViewById<Button>(R.id.subscribe_button)
             if (it.data.user_is_subscriber) {
                 subState = true

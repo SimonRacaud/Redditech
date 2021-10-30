@@ -22,6 +22,7 @@ data class SubredditModel (
     var community_icon: String?,    // icon url 2 (may be empty)
 
     val accept_followers: Boolean,  // allow subscribe ?
+    val active_user_count: Int, //nb connected users
     val subscribers: Int,           // nb subscribers
     val user_is_subscriber: Boolean,// subscribed
     val url: String,    // page url

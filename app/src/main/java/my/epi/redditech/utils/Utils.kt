@@ -1,5 +1,6 @@
 package my.epi.redditech.utils
 
+import android.util.Log
 import java.sql.Timestamp
 import java.util.*
 
@@ -11,7 +12,7 @@ class Utils {
             if (str.length > 6) {
                 str = str.substring(0, str.length - 6) + 'M'
             } else if (str.length > 3) {
-                str = str.substring(0, str.length - 3) + 'K'
+                str = str.substring(0, str.length - 3) + 'k'
             }
             return str
         }

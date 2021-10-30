@@ -48,6 +48,8 @@
     <string name="subreddit_item_subscribers_label">members</string>
     <string name="post_item_posted_by">Posted by</string>
     <string name="post_redirection_button_default">Go to redirection</string>
+    <string name="nb_connected_label">online</string>
+    <string name="subreddit_header_def_nb_connected">0</string>
 
     <string-array name="filter_array">
         <item>💯 Rising</item>
