@@ -28,7 +28,7 @@ import my.epi.redditech.viewmodel.ViewModelProviderFactory
 class HomePostTabFragment : Fragment() {
 
     private lateinit var viewModel: HomePostsViewModel
-    private var postFilter = arrayOf("rising", "hot", "new", "top")
+    private var postFilter = arrayOf("hot", "new", "top", "rising")
     private lateinit var myView: View
 
     override fun onCreateView(

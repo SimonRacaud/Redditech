@@ -25,37 +25,15 @@ class SubredditActivity : AppCompatActivity() {
 
     private lateinit var viewModel: SubredditViewModel
     private lateinit var binding: ActivitySubredditBinding
-    private lateinit var subredditInfo : SubredditModel
-    private lateinit var subredditNameShort : String
-    private lateinit var subredditName : String
+    private lateinit var subredditInfo: SubredditModel
+    private lateinit var subredditNameShort: String
+    private lateinit var subredditName: String
     private var subState = false
-    private var postFilter = arrayOf("rising", "hot", "new", "top")
+    private var postFilter = arrayOf("hot", "new", "top", "rising")
     private lateinit var loadingManager: LoadingManager
     private lateinit var adapter: PostListAdapter
     private var filterPosition: Int = 0
-    private var nextPost: String = ""
-
-    private fun handleInfiniteScroll(recyclerView: RecyclerView) {
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                if (!recyclerView.canScrollVertically(1)) {
-                    loadListContent(subredditName, postFilter[filterPosition], false)
-                    Log.d("SUBREDDITACTIVITY", "on peux plus scroll")
-                    Log.d("PAGINATION", "on trigger de nouveau")
-                }
-            }
-        })
-    }
-
-    private fun changeStatusButtonSub() {
-        val subscribeButton = findViewById<Button>(R.id.subscribe_button)
-        if (subState) {
-            subscribeButton.text = "UNSUBSCRIBE"
-        } else {
-            subscribeButton.text = "SUBSCRIBE"
-        }
-    }
+    private var nextPost: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,19 +49,42 @@ class SubredditActivity : AppCompatActivity() {
         button.setOnClickListener {
             finish()
         }
+        // Filters selector creation
+        this.createFilterSelector()
         /// Get Parameters
         val intent = getIntent()
         subredditName = intent.extras?.get("subredditName").toString()
         subredditNameShort = subredditName.drop(2) // remove the "r/"
         /// Load content
         this.loadMetadata(subredditNameShort)
+        /// Infinite scroll
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
-        handleInfiniteScroll(recyclerView)
-
-        // Filters selector creation
-        this.createFilterSelector()
-
+        recyclerView.adapter =
+            PostListAdapter(this, arrayListOf<PostItemModel>(), R.layout.home_tab_post_item)
+        this.handleInfiniteScroll(recyclerView)
     }
+
+    private fun handleInfiniteScroll(recyclerView: RecyclerView) {
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1)) {
+                    loadListContent(subredditName, postFilter[filterPosition], false)
+                    Log.d("SUBREDDIT ACTIVITY", "on ne peut plus scroll")
+                }
+            }
+        })
+    }
+
+    private fun changeStatusButtonSub() {
+        val subscribeButton = findViewById<Button>(R.id.subscribe_button)
+        if (subState) {
+            subscribeButton.text = "UNSUBSCRIBE"
+        } else {
+            subscribeButton.text = "SUBSCRIBE"
+        }
+    }
+
 
     private fun createFilterSelector() {
         val spinner: Spinner = findViewById(R.id.filter_selector)
@@ -95,19 +96,22 @@ class SubredditActivity : AppCompatActivity() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
         }
-        spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 filterPosition = position
                 if (postFilter[filterPosition].isNotEmpty()) {
-                    Log.d("LOADCONTENT2", "CALL LOADING")
                     nextPost = ""
                     loadListContent(subredditName, postFilter[filterPosition], true)
                 } else {
                     nextPost = ""
-                    Log.d("LOADCONTENT2", "item selected without position")
-                    Log.d("LOADCONTENT2", filterPosition.toString() + ": position")
                     loadListContent(subredditName, "hot", true)
                 }
 
@@ -116,23 +120,24 @@ class SubredditActivity : AppCompatActivity() {
     }
 
     private fun loadListContent(pageName: String, filter: String, reset: Boolean) {
-        val postList = arrayListOf<PostItemModel>()
         val repository = AppRepository()
         val factory = ViewModelProviderFactory(repository)
-        Log.d("LOADCONTENT2", "LOADCONTENT")
+        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+        val postList = arrayListOf<PostItemModel>()
+
         viewModel = ViewModelProvider(this, factory).get(SubredditViewModel::class.java)
+        if (reset) {
+            (recyclerView.adapter as PostListAdapter).clear()
+        }
         viewModel.subredditPosts.observe(this, {
-            Log.d("LOADCONTENT2", "Observe trigger actual size: " + postList.size.toString())
-            if (reset)
-                postList.clear()
-            Log.d("LOADCONTENT2", "SIZE GET: " + it.data.children.size.toString())
-            nextPost = it.data.after.toString()
-            it.data.children.forEach { element ->
-                postList.add(PostItemModel(element.data))
+            postList.clear()
+            if (nextPost != it.data.after.toString() && nextPost != null) {
+                nextPost = it.data.after.toString()
+                it.data.children.forEach { element ->
+                    postList.add(PostItemModel(element.data))
+                }
+                (recyclerView.adapter as PostListAdapter).append(postList)
             }
-            Log.d("LOADCONTENT2", "After ADD: " + postList.size.toString())
-            val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
-            recyclerView.adapter = PostListAdapter(this, postList, R.layout.home_tab_post_item)
         })
         viewModel.errorMessage.observe(this, {
             ErrorMessage.show(this, it)
@@ -144,7 +149,7 @@ class SubredditActivity : AppCompatActivity() {
                 // mask progress
             }
         })
-        viewModel.getSubredditPosts(pageName, filter, nextPost)
+        viewModel.getSubredditPosts(pageName, filter, nextPost!!)
     }
 
     private fun loadMetadata(pageName: String) {

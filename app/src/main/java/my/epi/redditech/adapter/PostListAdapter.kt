@@ -131,6 +131,7 @@ class PostListAdapter(
     fun append(list: List<PostItemModel>) {
         val oldSize = itemList.size
         itemList.addAll(list)
+        println("APPEND LIST SIZE ${list.size} size: ${oldSize}")
         this.notifyItemRangeInserted(oldSize, list.size)
     }
 
