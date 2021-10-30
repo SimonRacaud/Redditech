@@ -2,6 +2,8 @@ package my.epi.redditech.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -38,6 +40,7 @@ class PostListAdapter(
         val media: WebView = view.findViewById<WebView>(R.id.media_view)
         val media_view_container: LinearLayout = view.findViewById(R.id.media_view_container)
         val picture: ImageView = view.findViewById<ImageView>(R.id.picture)
+        val postType: TextView = view.findViewById<TextView>(R.id.post_type)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostListAdapter.ViewHolder {
@@ -65,6 +68,21 @@ class PostListAdapter(
         holder.subredditName.setOnClickListener { onClickSubreddit(current.subredditName) }
         holder.author.text = current.author
         holder.content.text = current.title
+
+        if (current.postType != null && current.postType.isNotEmpty()) {
+            holder.postType.visibility = View.VISIBLE
+            holder.postType.text = current.postType[0].label
+            if (!current.postTypeBackgroundColor.isNullOrEmpty())
+                holder.postType.background = ColorDrawable(Color.parseColor(current.postTypeBackgroundColor))
+            if (!current.postTypeTextColor.isNullOrEmpty()) {
+                if (current.postTypeTextColor == "dark") {
+                    holder.postType.setTextColor(Color.BLACK)
+                } else if (current.postTypeTextColor == "light") {
+                    holder.postType.setTextColor(Color.WHITE)
+                }
+            }
+        }
+
         /// BUTTON
         if (!current.redirectUrl.isNullOrEmpty()) {
             val url = Uri.parse(current.redirectUrl)

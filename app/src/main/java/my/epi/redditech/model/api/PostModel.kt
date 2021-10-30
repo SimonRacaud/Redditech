@@ -1,10 +1,19 @@
 package my.epi.redditech.model.api
 
+import com.google.gson.annotations.SerializedName
+
 data class PostModel(
     val author: String, // author username
     val author_fullname: String, // author unique id ex: "t2_4zlgiopm"
 
     val title: String,
+
+    @SerializedName("link_flair_richtext")
+    val postType: List<PostTypeModel>?,
+    @SerializedName("link_flair_text_color")
+    val postTypeTextColor: String,
+    @SerializedName("link_flair_background_color")
+    val postTypeBackgroundColor: String,
 
     val id: String,
     val name: String, // unique id (listing)

@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextWatcher
 import android.text.method.ScrollingMovementMethod
 import android.view.View
 import android.webkit.WebView
@@ -158,6 +159,7 @@ class PostPageActivity : AppCompatActivity() {
         var author = findViewById<TextView>(R.id.subreddit_desc)
         var subscriberNumber = findViewById<TextView>(R.id.header_nb_subscribers)
         var buttonSubscribe = findViewById<Button>(R.id.subscribe_button)
+        var postType = findViewById<TextView>(R.id.post_type)
 
         subredditName.text = postInfo.subreddit_name_prefixed
         postDate.text = Utils.formatDate(postInfo.created_utc.toLong())
@@ -165,6 +167,19 @@ class PostPageActivity : AppCompatActivity() {
         subscriberNumber.text = Utils.getFormatNumber(postInfo.subreddit_subscribers)
         buttonSubscribe.visibility = View.INVISIBLE
         buttonSubscribe.isEnabled = false
+        if (postInfo.postType != null && postInfo.postType.size != 0) {
+            postType.visibility = View.VISIBLE
+            postType.text = postInfo.postType[0].label
+            if (!postInfo.postTypeBackgroundColor.isNullOrEmpty())
+                postType.background = ColorDrawable(Color.parseColor(postInfo.postTypeBackgroundColor))
+            if (!postInfo.postTypeTextColor.isNullOrEmpty()) {
+                if (postInfo.postTypeTextColor == "dark") {
+                    postType.setTextColor(Color.BLACK)
+                } else if (postInfo.postTypeTextColor == "light") {
+                    postType.setTextColor(Color.WHITE)
+                }
+            }
+        }
     }
 
     /**

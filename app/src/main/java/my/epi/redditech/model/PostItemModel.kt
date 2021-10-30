@@ -1,9 +1,6 @@
 package my.epi.redditech.model
 
-import my.epi.redditech.model.api.PostModel
-import my.epi.redditech.model.api.PreviewModel
-import my.epi.redditech.model.api.SecureMediaEmbedModel
-import my.epi.redditech.model.api.SecureMediaModel
+import my.epi.redditech.model.api.*
 
 class PostItemModel (
     val title: String = "Title undefined",
@@ -21,7 +18,10 @@ class PostItemModel (
     val mediaEmbed: SecureMediaEmbedModel? = null,
     val media: SecureMediaModel? = null,
     val domain: String? = null,
-    val name: String = ""
+    val name: String = "",
+    val postType: List<PostTypeModel>? = null,
+    val postTypeTextColor: String = "dark",
+    val postTypeBackgroundColor: String = ""
 ) {
     constructor (postModel: PostModel) : this(
         postModel.title,
@@ -40,5 +40,8 @@ class PostItemModel (
         postModel.secure_media,
         postModel.domain,
         postModel.name,
+        postModel.postType,
+        postModel.postTypeTextColor,
+        postModel.postTypeBackgroundColor
     )
 }
