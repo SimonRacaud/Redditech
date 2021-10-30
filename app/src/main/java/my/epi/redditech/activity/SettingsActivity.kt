@@ -22,7 +22,9 @@ import my.epi.redditech.utils.LoadingManager
 import my.epi.redditech.viewmodel.SettingsViewModel
 import java.lang.Exception
 
-
+/**
+ * User settings
+ */
 class SettingsActivity : AppCompatActivity() {
     private lateinit var loadingManager: LoadingManager
     private lateinit var userViewModel: UserViewModel
@@ -36,9 +38,11 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
         loadingManager = LoadingManager(supportFragmentManager)
 
+        /// Bind data to the view
         binding = DataBindingUtil.setContentView(
             this, R.layout.activity_settings
         )
+        /// Init widgets state (network)
         init()
 
         /// BACK BUTTON
@@ -46,7 +50,7 @@ class SettingsActivity : AppCompatActivity() {
         button.setOnClickListener {
             finish()
         }
-        /// Settings
+        /// Settings : link switch to actions
         val switchFollower = findViewById<Switch>(R.id.switch_follow)
         switchFollower.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
             prefModel!!.enable_followers = isChecked
@@ -94,10 +98,16 @@ class SettingsActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * Init widgets state
+     */
     private fun init() {
         setupViewModel()
     }
 
+    /**
+     * Setup network
+     */
     private fun setupViewModel() {
         val repository = AppRepository()
         val factory = ViewModelProviderFactory(repository)
@@ -113,6 +123,9 @@ class SettingsActivity : AppCompatActivity() {
         prefViewModel.getSettings()
     }
 
+    /**
+     *  Get current user
+     */
     private fun getUser() {
         loadingManager.startLoading()
         userViewModel.user.observe(this, {
@@ -131,14 +144,15 @@ class SettingsActivity : AppCompatActivity() {
             loadingManager.stopLoading()
         })
         userViewModel.loading.observe(this, {
-            if (it) {
-                // it show progress bar (loading...)
-            } else {
+            if (!it) {
                 loadingManager.stopLoading()
             }
         })
     }
 
+    /**
+     * Get pref (network)
+     */
     private fun getSettings() {
         loadingManager.startLoading()
         prefViewModel.preferences.observe(this, {
@@ -151,9 +165,7 @@ class SettingsActivity : AppCompatActivity() {
             loadingManager.stopLoading()
         })
         userViewModel.loading.observe(this, {
-            if (it) {
-                // it show progress bar (loading...)
-            } else {
+            if (!it) {
                 loadingManager.stopLoading()
             }
         })

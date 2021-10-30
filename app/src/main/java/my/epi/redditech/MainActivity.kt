@@ -6,6 +6,9 @@ import android.os.Bundle
 import my.epi.redditech.R.*
 import my.epi.redditech.activity.StartActivity
 
+/**
+ * Main page : redirect directly to the start page
+ */
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

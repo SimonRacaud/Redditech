@@ -6,6 +6,9 @@ import kotlinx.coroutines.*
 import my.epi.redditech.model.api.OAuthModel
 import my.epi.redditech.repository.AppRepository
 
+/**
+ * Network - Auth page
+ */
 class AuthViewModel constructor(private val appRepository:
                                      AppRepository) : ViewModel() {
     val errorMessage = MutableLiveData<String>()

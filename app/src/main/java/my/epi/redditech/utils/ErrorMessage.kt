@@ -4,6 +4,9 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 
+/**
+ * Show an error message in a dialogue box
+ */
 class ErrorMessage {
     companion object {
         fun show(context: Activity, message: String, onClickCallback: (() -> Unit)? = null) {

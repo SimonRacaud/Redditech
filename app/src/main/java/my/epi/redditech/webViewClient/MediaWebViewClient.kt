@@ -10,8 +10,13 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 
+/**
+ * Post item media - web view client
+ */
 internal class MediaWebViewClient : WebViewClient() {
-
+    /**
+     * What is that ??? - Loading the content maybe ?
+     */
     override fun shouldOverrideUrlLoading(view: WebView, url: String?): Boolean {
         return if (url != null && (url.startsWith("http://") || url.startsWith("https://"))) {
             view.context.startActivity(

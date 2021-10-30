@@ -5,6 +5,9 @@ import androidx.fragment.app.FragmentManager
 import my.epi.redditech.R
 import my.epi.redditech.fragment.LoadingFragment
 
+/**
+ * Allow to show a loading icon when a network request is in progress
+ */
 class LoadingManager(val manager: FragmentManager) {
     private var loadingCounter = 0
 

@@ -6,6 +6,9 @@ import kotlinx.coroutines.*
 import my.epi.redditech.model.api.UserModel
 import my.epi.redditech.repository.AppRepository
 
+/**
+ * Network - Settings page - User account
+ */
 class UserViewModel constructor(private val appRepository:
                                 AppRepository) : ViewModel() {
     val errorMessage = MutableLiveData<String>()

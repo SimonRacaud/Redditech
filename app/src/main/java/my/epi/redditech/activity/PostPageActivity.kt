@@ -25,6 +25,9 @@ import my.epi.redditech.viewmodel.PostPageViewModel
 import my.epi.redditech.viewmodel.ViewModelProviderFactory
 import my.epi.redditech.webViewClient.MediaWebViewClient
 
+/**
+ * The the content of a specific post
+ */
 class PostPageActivity : AppCompatActivity() {
     private lateinit var loadingManager: LoadingManager
     private lateinit var viewModel: PostPageViewModel
@@ -48,15 +51,29 @@ class PostPageActivity : AppCompatActivity() {
         this.fetchData(postName, subredditName.drop(2))
     }
 
+    /**
+     * Network initialisation
+     */
+    private fun fetchData(postName: String, subredditName: String) {
+        this.setupViewModel()
+        loadingManager.startLoading()
+        this.getPostContent(postName)
+        this.getSubredditInfo(subredditName)
+    }
 
+    /**
+     * Setup the view model (network)
+     */
     private fun setupViewModel() {
         val repository = AppRepository()
         val factory = ViewModelProviderFactory(repository)
 
         viewModel = ViewModelProvider(this, factory).get(PostPageViewModel::class.java)
-
     }
 
+    /**
+     * Getting the post content though the network
+     */
     private fun getPostContent(postName: String) {
         viewModel.post.observe(this, {
             postInfo = it.data.children[0].data
@@ -67,15 +84,16 @@ class PostPageActivity : AppCompatActivity() {
             ErrorMessage.show(this, it)
         })
         viewModel.loading.observe(this, {
-            if (it) {
-                // it show progress bar (loading...)
-            } else {
+            if (!it) {
                 loadingManager.stopLoading()
             }
         })
         viewModel.getPostPage(postName)
     }
 
+    /**
+     * Get the information of the post's subreddit (network)
+     */
     private fun getSubredditInfo(subredditName: String) {
         viewModel.subredditInfo.observe(this, {
             subredditInfo = it.data
@@ -84,23 +102,12 @@ class PostPageActivity : AppCompatActivity() {
         viewModel.errorMessage.observe(this, {
             ErrorMessage.show(this, it)
         })
-        viewModel.loading.observe(this, {
-            if (it) {
-                // use it
-            } else {
-                // mask progress
-            }
-        })
         viewModel.getInfoSubreddit(subredditName)
     }
 
-    private fun fetchData(postName: String, subredditName: String) {
-        this.setupViewModel()
-        loadingManager.startLoading()
-        this.getPostContent(postName)
-        this.getSubredditInfo(subredditName)
-    }
-
+    /**
+     * Fill the view - page header - load images
+     */
     private fun buildHeader(subredditInfo: SubredditModel) {
         val headerImg = findViewById<ImageView>(R.id.subredit_img_header)
         val iconImg = findViewById<ImageView>(R.id.community_icon)
@@ -109,17 +116,22 @@ class PostPageActivity : AppCompatActivity() {
         bannerUrl = bannerUrl?.replace("&amp;", "&")
         Glide.with(this).load(bannerUrl).into(headerImg)
 
-
         var comunityIconUrl = subredditInfo.community_icon
         comunityIconUrl = comunityIconUrl?.replace("&amp;", "&")
         Glide.with(this).load(comunityIconUrl).into(iconImg)
     }
 
+    /**
+     * Fill the view - page meta and content
+     */
     private fun buildPage(postInfo: PostModel) {
         buildInfo(postInfo)
         buildContent(postInfo)
     }
 
+    /**
+     * Fill the view - page meta data
+     */
     private fun buildInfo(postInfo : PostModel) {
         var subredditName = findViewById<TextView>(R.id.subreddit_title)
         var postDate = findViewById<TextView>(R.id.post_utc)
@@ -135,6 +147,9 @@ class PostPageActivity : AppCompatActivity() {
         buttonSubscribe.isEnabled = false
     }
 
+    /**
+     * Fill the view - page content
+     */
     private fun buildContent(postInfo: PostModel) {
         val current = PostItemModel(postInfo)
         var postTitle = findViewById<TextView>(R.id.post_title)
@@ -185,6 +200,9 @@ class PostPageActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Load media through a webview (videos)
+     */
     private fun loadMedia(url: String, media: WebView, container: LinearLayout) {
         media.loadUrl(url)
         media.settings?.allowContentAccess = true
@@ -198,5 +216,4 @@ class PostPageActivity : AppCompatActivity() {
         val browseIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         this.startActivity(browseIntent)
     }
-
 }

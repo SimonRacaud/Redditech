@@ -6,6 +6,9 @@ import my.epi.redditech.activity.PostPageActivity
 import my.epi.redditech.repository.AppRepository
 import java.lang.IllegalArgumentException
 
+/**
+ * Network access classes registration
+ */
 class ViewModelProviderFactory(
     private val appRepository: AppRepository
 ) : ViewModelProvider.Factory {

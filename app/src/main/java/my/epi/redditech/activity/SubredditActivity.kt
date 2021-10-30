@@ -21,6 +21,9 @@ import my.epi.redditech.utils.Utils
 import my.epi.redditech.viewmodel.SubredditViewModel
 import my.epi.redditech.viewmodel.ViewModelProviderFactory
 
+/**
+ * Subreddit home page
+ */
 class SubredditActivity : AppCompatActivity() {
 
     private lateinit var viewModel: SubredditViewModel
@@ -39,6 +42,7 @@ class SubredditActivity : AppCompatActivity() {
         setContentView(R.layout.activity_subreddit)
         loadingManager = LoadingManager(supportFragmentManager)
 
+        /// Bind data with the view
         binding = DataBindingUtil.setContentView(
             this, R.layout.activity_subreddit
         )
@@ -63,6 +67,9 @@ class SubredditActivity : AppCompatActivity() {
         this.handleInfiniteScroll(recyclerView)
     }
 
+    /**
+     * For pagination : detect scrolling end
+     */
     private fun handleInfiniteScroll(recyclerView: RecyclerView) {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -75,6 +82,9 @@ class SubredditActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * Subscription button - update status
+     */
     private fun changeStatusButtonSub() {
         val subscribeButton = findViewById<Button>(R.id.subscribe_button)
         if (subState) {
@@ -84,7 +94,9 @@ class SubredditActivity : AppCompatActivity() {
         }
     }
 
-
+    /**
+     * Init filter selector
+     */
     private fun createFilterSelector() {
         val spinner: Spinner = findViewById(R.id.filter_selector)
         ArrayAdapter.createFromResource(
@@ -111,11 +123,13 @@ class SubredditActivity : AppCompatActivity() {
                     nextPost = ""
                     loadListContent(subredditName, "hot", true)
                 }
-
             }
         }
     }
 
+    /**
+     * Load subreddit's post list
+     */
     private fun loadListContent(pageName: String, filter: String, reset: Boolean) {
         val repository = AppRepository()
         val factory = ViewModelProviderFactory(repository)
@@ -139,16 +153,12 @@ class SubredditActivity : AppCompatActivity() {
         viewModel.errorMessage.observe(this, {
             ErrorMessage.show(this, it)
         })
-        viewModel.loading.observe(this, {
-            if (it) {
-                // SHOW PROGRESS BAR
-            } else {
-                // mask progress
-            }
-        })
         viewModel.getSubredditPosts(pageName, filter, nextPost!!)
     }
 
+    /**
+     * Load subreddit meta data
+     */
     private fun loadMetadata(pageName: String) {
         val repository = AppRepository()
         val factory = ViewModelProviderFactory(repository)
@@ -197,11 +207,8 @@ class SubredditActivity : AppCompatActivity() {
             loadingManager.stopLoading()
         })
         viewModel.loading.observe(this, {
-            if (it) {
-                // SHOW PROGRESS BAR
-            } else {
-                // mask progress
-                loadingManager.stopLoading()
+            if (!it) {
+                loadingManager.stopLoading() // end loading
             }
         })
         viewModel.getInfoSubreddit(pageName)

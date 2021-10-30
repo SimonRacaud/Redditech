@@ -15,7 +15,9 @@ import my.epi.redditech.utils.ErrorMessage
 import my.epi.redditech.viewmodel.SearchViewModel
 import my.epi.redditech.viewmodel.ViewModelProviderFactory
 
-
+/**
+ * Search subreddit page
+ */
 class SearchActivity : AppCompatActivity() {
     private lateinit var viewModel: SearchViewModel
 
@@ -23,12 +25,13 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
+        /// BACK BUTTON
         val button = findViewById<Button>(R.id.back_button)
         button.setOnClickListener {
             finish()
         }
 
-        // SEARCH BAR
+        // SEARCH BAR WIDGET
         val searchBar = findViewById<SearchView>(R.id.searchInput)
         searchBar.isIconified = false
         searchBar.isFocusedByDefault = true
@@ -43,10 +46,15 @@ class SearchActivity : AppCompatActivity() {
                 return false
             }
         })
-        /// Load list content
+        /// Load list content (network)
         this.loadList()
     }
 
+    /**
+     * Load subreddit list (network)
+     * Default : load popular subreddits
+     * Search : search of subreddits
+     */
     private fun loadList(query: String = "")
     {
         val list = arrayListOf<SubredditItemModel>()
@@ -71,15 +79,8 @@ class SearchActivity : AppCompatActivity() {
         viewModel.errorMessage.observe(this, {
             ErrorMessage.show(this, it)
         })
-        viewModel.loading.observe(this, {
-            if (it) {
-                // SHOW PROGRESS BAR
-            } else {
-                // mask progress
-            }
-        })
         if (query.isEmpty()) {
-            viewModel.getSubredditList("popular")
+            viewModel.getSubredditList("popular") // Default list items are popular subreddits
         } else {
             viewModel.getSubredditSearch(query)
         }

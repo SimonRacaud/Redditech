@@ -4,6 +4,9 @@ import my.epi.redditech.model.api.OAuthModel
 import retrofit2.Response
 import retrofit2.http.*
 
+/**
+ * List of the API's endpoints - auth only
+ */
 interface OAuthReddit {
 
     @FormUrlEncoded

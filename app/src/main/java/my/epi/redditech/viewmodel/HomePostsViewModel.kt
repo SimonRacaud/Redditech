@@ -7,6 +7,9 @@ import my.epi.redditech.model.api.ListModel
 import my.epi.redditech.model.api.PostModel
 import my.epi.redditech.repository.AppRepository
 
+/**
+ * Network - Home page fragment
+ */
 class HomePostsViewModel constructor(private val appRepository:
                                     AppRepository) : ViewModel() {
     val errorMessage = MutableLiveData<String>()

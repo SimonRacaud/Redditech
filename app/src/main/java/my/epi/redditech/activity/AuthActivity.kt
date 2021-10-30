@@ -1,6 +1,5 @@
 package my.epi.redditech.activity
 
-import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,10 +11,11 @@ import my.epi.redditech.network.ApiClient
 import my.epi.redditech.repository.AppRepository
 import my.epi.redditech.viewmodel.AuthViewModel
 import my.epi.redditech.viewmodel.ViewModelProviderFactory
-import android.content.DialogInterface
 import my.epi.redditech.utils.ErrorMessage
 
-
+/**
+ * Login page with Reddit OAuth2
+ */
 class AuthActivity : AppCompatActivity() {
 
     private lateinit var viewModel: AuthViewModel
@@ -27,6 +27,9 @@ class AuthActivity : AppCompatActivity() {
         this.createWebView()
     }
 
+    /**
+     * Create the web view to load the oauth web page
+     */
     private fun createWebView() {
         val myWebView = findViewById<WebView>(R.id.webview)
         val url = this.getString(R.string.auth_url)
@@ -37,6 +40,9 @@ class AuthActivity : AppCompatActivity() {
         myWebView?.webViewClient = LoginWebViewClient(url, this)
     }
 
+    /**
+     * After login in - get the token
+     */
     fun applyLogin(code: String) {
         val repository = AppRepository()
         val factory = ViewModelProviderFactory(repository)
@@ -50,13 +56,6 @@ class AuthActivity : AppCompatActivity() {
         })
         viewModel.errorMessage.observe(this, {
             ErrorMessage.show(this, it)
-        })
-        viewModel.loading.observe(this, {
-            if (it) {
-                // it show progress bar (loading...)
-            } else {
-                // mask progress
-            }
         })
         viewModel.getToken(code)
     }

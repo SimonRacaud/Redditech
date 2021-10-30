@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import my.epi.redditech.R
 
+/**
+ * In post home page - show post full content
+ */
 class PostContentFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

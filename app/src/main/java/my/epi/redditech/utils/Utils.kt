@@ -6,6 +6,9 @@ import java.util.*
 
 class Utils {
     companion object {
+        /**
+         * Format a big number - add a suffix (M million or K ...)
+         */
         fun getFormatNumber(number: Int) : String {
             var str = number.toString()
 

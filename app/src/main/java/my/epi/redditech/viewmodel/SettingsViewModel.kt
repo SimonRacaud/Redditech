@@ -6,6 +6,9 @@ import kotlinx.coroutines.*
 import my.epi.redditech.repository.AppRepository
 import my.epi.redditech.model.api.PrefModel
 
+/**
+ * Network - settings page
+ */
 class SettingsViewModel constructor(private val appRepository:
                                     AppRepository) : ViewModel() {
     val errorMessage = MutableLiveData<String>()

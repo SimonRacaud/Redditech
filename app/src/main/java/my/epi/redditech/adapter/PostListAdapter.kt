@@ -46,6 +46,9 @@ class PostListAdapter(
         return ViewHolder(view)
     }
 
+    /**
+     * Initialise a Post item
+     */
     override fun onBindViewHolder(holder: PostListAdapter.ViewHolder, position: Int) {
         val current = itemList[position]
 

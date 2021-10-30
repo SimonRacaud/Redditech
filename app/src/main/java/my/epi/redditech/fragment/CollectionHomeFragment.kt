@@ -12,7 +12,7 @@ import my.epi.redditech.R
 import my.epi.redditech.adapter.HomeCollectionAdapter
 
 /**
- * Tabs controller
+ * Home Tabs controller
  */
 class CollectionHomeFragment : Fragment() {
     private lateinit var HomeCollectionAdapter: HomeCollectionAdapter

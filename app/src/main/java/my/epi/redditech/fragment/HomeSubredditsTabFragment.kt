@@ -49,6 +49,9 @@ class HomeSubredditsTabFragment : Fragment() {
         return view;
     }
 
+    /**
+     * For pagination : detect scroll ending
+     */
     private fun handleInfiniteScroll(view: View) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
 
@@ -56,12 +59,15 @@ class HomeSubredditsTabFragment : Fragment() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1) && recyclerView.computeVerticalScrollOffset() > 0) {
-                    //fetchData()
+                    fetchData()
                 }
             }
         })
     }
 
+    /**
+     * Fetch list data (network)
+     */
     private fun fetchData() {
         val subList = arrayListOf<SubredditItemModel>()
         val repository = AppRepository()
@@ -99,13 +105,6 @@ class HomeSubredditsTabFragment : Fragment() {
         })
         viewModel.errorMessage.observe(viewLifecycleOwner, {
             this.parentFragment?.activity?.let { it1 -> ErrorMessage.show(it1, it) }
-        })
-        viewModel.loading.observe(viewLifecycleOwner, {
-            if (it) {
-                // SHOW PROGRESS BAR
-            } else {
-                // mask progress
-            }
         })
         viewModel.getSubscribedSubreddit(this.next!!)
     }

@@ -51,6 +51,9 @@ class HomePostTabFragment : Fragment() {
         return myView
     }
 
+    /**
+     * For pagination : detect scroll ending
+     */
     private fun handleInfiniteScroll(view: View) {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
 
@@ -64,6 +67,9 @@ class HomePostTabFragment : Fragment() {
         })
     }
 
+    /**
+     * Init feed filter
+     */
     private fun createFilterSelector(view: View) {
         val spinner: Spinner = view.findViewById(R.id.filter_selector)
 
@@ -95,6 +101,9 @@ class HomePostTabFragment : Fragment() {
         }
     }
 
+    /**
+     * Load feed content
+     */
     private fun loadContent(view: View, filter: String, reset: Boolean) {
         val postList = arrayListOf<PostItemModel>()
         val repository = AppRepository()
@@ -117,13 +126,6 @@ class HomePostTabFragment : Fragment() {
         })
         viewModel.errorMessage.observe(viewLifecycleOwner, {
             this.parentFragment?.activity?.let { it1 -> ErrorMessage.show(it1, it) }
-        })
-        viewModel.loading.observe(viewLifecycleOwner, {
-            if (it) {
-                // SHOW PROGRESS BAR
-            } else {
-                // mask progress
-            }
         })
         viewModel.getPostsFeed(filter, nextPost!!)
     }

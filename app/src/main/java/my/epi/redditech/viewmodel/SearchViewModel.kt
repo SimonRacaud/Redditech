@@ -7,6 +7,9 @@ import my.epi.redditech.model.api.ListModel
 import my.epi.redditech.model.api.SubredditModel
 import my.epi.redditech.repository.AppRepository
 
+/**
+ * Network - search page
+ */
 class SearchViewModel constructor(
     private val appRepository:
     AppRepository

@@ -8,6 +8,9 @@ import my.epi.redditech.network.ApiClient
 import retrofit2.Response
 import retrofit2.http.Path
 
+/**
+ * List of the network requests
+ */
 class AppRepository {
     suspend fun getToken(code : String) = ApiClient.oauthReddit.getToken(code)
 

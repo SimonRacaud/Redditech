@@ -9,6 +9,9 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import my.epi.redditech.R
 
+/**
+ * Fragment that allow to show a loading icon when a network request is not finished
+ */
 class LoadingFragment : Fragment() {
 
     override fun onCreateView(

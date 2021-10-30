@@ -10,9 +10,15 @@ import android.webkit.WebViewClient
 import my.epi.redditech.activity.AuthActivity
 import my.epi.redditech.utils.ErrorMessage
 
+/**
+ * Auth page - web client
+ */
 internal class LoginWebViewClient(val primaryUrl: String, val context: AuthActivity) : WebViewClient() {
     private var code: String = ""
 
+    /**
+     * Auth code interception
+     */
     override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
         val uri = Uri.parse(url)
 
@@ -40,6 +46,9 @@ internal class LoginWebViewClient(val primaryUrl: String, val context: AuthActiv
         return true
     }
 
+    /**
+     * Auth web page reformat
+     */
     override fun onPageFinished(view: WebView?, url: String?) {
         super.onPageFinished(view, url)
         val uri = Uri.parse(url)

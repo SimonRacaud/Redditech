@@ -10,6 +10,9 @@ import my.epi.redditech.model.api.PostModel
 import my.epi.redditech.model.api.SubredditModel
 import my.epi.redditech.repository.AppRepository
 
+/**
+ * Network - subreddit home page
+ */
 class SubredditViewModel constructor(private val appRepository:
                                      AppRepository) : ViewModel() {
     val errorMessage = MutableLiveData<String>()

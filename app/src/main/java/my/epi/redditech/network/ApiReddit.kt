@@ -4,6 +4,9 @@ import my.epi.redditech.model.api.*
 import retrofit2.Response
 import retrofit2.http.*
 
+/**
+ * List of the API's endpoints
+ */
 interface ApiReddit {
 
     @GET("api/v1/me")

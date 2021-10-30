@@ -45,6 +45,9 @@ class SubredditListAdapter(
 
     override fun getItemCount(): Int = itemList.size
 
+    /**
+     * Initialize a Subreddit item
+     */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val current = itemList[position]
 
