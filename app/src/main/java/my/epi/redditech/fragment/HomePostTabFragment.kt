@@ -40,7 +40,6 @@ class HomePostTabFragment : Fragment() {
     ): View {
         myView = inflater.inflate(R.layout.home_post_tab_fragment, container, false)
 
-        this.loadContent(myView, "rising", false)
         this.handleInfiniteScroll(myView)
         // Filters selector creation
         this.createFilterSelector(myView)
