@@ -16,7 +16,7 @@ class AppRepository {
     suspend fun getSettings() = ApiClient.apiReddit.getSettings()
     suspend fun setSettings(pref: PrefModel) = ApiClient.apiReddit.setSettings(pref)
 
-    suspend fun getSubscribedSubreddit() = ApiClient.apiReddit.getSubscribeSubreddit()
+    suspend fun getSubscribedSubreddit(next: String) = ApiClient.apiReddit.getSubscribeSubreddit(next)
 
     suspend fun getPostsFeed(sort : String, nextPost: String) = ApiClient.apiReddit.getPostsFeed(sort, nextPost)
 

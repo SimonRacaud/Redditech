@@ -16,7 +16,7 @@ interface ApiReddit {
     suspend fun setSettings(@Body pref: PrefModel): Response<PrefModel>
 
     @GET("/subreddits/mine/subscriber")
-    suspend fun getSubscribeSubreddit(): Response<ListModel<SubredditModel>>
+    suspend fun getSubscribeSubreddit(@Query("after") after: String): Response<ListModel<SubredditModel>>
 
     @GET("/{sort}")
     suspend fun getPostsFeed(@Path("sort") sort : String, @Query("after") after: String): Response<ListModel<PostModel>>

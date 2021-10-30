@@ -17,6 +17,7 @@ import my.epi.redditech.model.SubredditItemModel
 import android.graphics.Bitmap
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import my.epi.redditech.model.PostItemModel
 import my.epi.redditech.utils.Utils
 
 
@@ -60,6 +61,12 @@ class SubredditListAdapter(
         val intent = Intent(context, SubredditActivity::class.java)
         intent.putExtra("subredditName", pageName)
         context?.startActivity(intent)
+    }
+
+    fun append(list: List<SubredditItemModel>) {
+        val oldSize = itemList.size
+        itemList.addAll(list)
+        this.notifyItemRangeInserted(oldSize, list.size)
     }
 
     fun clear()
