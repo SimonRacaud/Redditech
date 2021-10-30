@@ -31,7 +31,6 @@ class SubredditActivity : AppCompatActivity() {
     private var subState = false
     private var postFilter = arrayOf("hot", "new", "top", "rising")
     private lateinit var loadingManager: LoadingManager
-    private lateinit var adapter: PostListAdapter
     private var filterPosition: Int = 0
     private var nextPost: String? = ""
 
@@ -97,9 +96,7 @@ class SubredditActivity : AppCompatActivity() {
             spinner.adapter = adapter
         }
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
-
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,

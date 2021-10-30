@@ -19,7 +19,7 @@ interface ApiReddit {
     suspend fun getSubscribeSubreddit(): Response<ListModel<SubredditModel>>
 
     @GET("/{sort}")
-    suspend fun getPostsFeed(@Path("sort") sort : String): Response<ListModel<PostModel>>
+    suspend fun getPostsFeed(@Path("sort") sort : String, @Query("after") after: String): Response<ListModel<PostModel>>
 
     @GET("/r/{subreddit}/about")
     suspend fun getSubredditInfo(@Path("subreddit") subreddit : String): Response<ItemModel<SubredditModel>>
