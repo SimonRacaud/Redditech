@@ -1,5 +1,6 @@
 package my.epi.redditech.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
@@ -37,7 +38,7 @@ class SubredditViewModel constructor(private val appRepository:
         }
     }
 
-    fun getSubredditPosts(subreddit: String, filter: String) {
+    fun getSubredditPosts(subreddit: String, filter: String, after: String) {
         job = CoroutineScope(Dispatchers.IO).launch {
             val response = appRepository.getSubredditPosts(subreddit, filter, after)
             withContext(Dispatchers.Main) {

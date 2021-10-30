@@ -24,7 +24,7 @@ import my.epi.redditech.model.PostItemModel
  */
 class PostListAdapter(
     private val context: Context?,
-    private val itemList: List<PostItemModel>,
+    private val itemList: MutableList<PostItemModel>,
     private val layoutId: Int
 ) : RecyclerView.Adapter<PostListAdapter.ViewHolder>() {
 
@@ -127,4 +127,17 @@ class PostListAdapter(
     }
 
     override fun getItemCount(): Int = itemList.size
+
+    fun append(list: List<PostItemModel>) {
+        val oldSize = itemList.size
+        itemList.addAll(list)
+        this.notifyItemRangeInserted(oldSize, list.size)
+    }
+
+    fun clear() {
+        val size = itemList.size
+
+        itemList.clear()
+        this.notifyItemRangeRemoved(0, size)
+    }
 }

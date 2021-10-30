@@ -38,11 +38,25 @@ class HomePostTabFragment : Fragment() {
     ): View {
         myView = inflater.inflate(R.layout.home_post_tab_fragment, container, false)
 
-        this.loadContent(myView, "rising")
+        this.loadContent(myView, "rising", false)
+        this.handleInfiniteScroll(myView)
         // Filters selector creation
         this.createFilterSelector(myView)
 
         return myView
+    }
+
+    private fun handleInfiniteScroll(view: View) {
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1)) {
+                    Log.d("SUBREDDITACTIVITY", "PAGE HOME CAN SCROLL")
+                }
+            }
+        })
     }
 
     private fun createFilterSelector(view: View)
@@ -64,15 +78,15 @@ class HomePostTabFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 if (postFilter[position].isNotEmpty()) {
                     
-                    loadContent(myView, postFilter[position])
+                    loadContent(myView, postFilter[position], false)
                 } else {
-                    loadContent(myView, "rising")
+                    loadContent(myView, "rising", false)
                 }
             }
         }
     }
 
-    private fun loadContent(view: View, filter: String)
+    private fun loadContent(view: View, filter: String, reset: Boolean)
     {
         val postList = arrayListOf<PostItemModel>()
         val repository = AppRepository()
