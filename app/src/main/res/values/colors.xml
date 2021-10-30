@@ -27,4 +27,6 @@
     <color name="primary_lite">#FB5011</color>
     <color name="primary_extra_lite">#F85F26</color>
 
+    <color name="default_blue">#FF0179d2</color>
+
 </resources>

@@ -1,5 +1,7 @@
 package my.epi.redditech.activity
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -172,11 +174,31 @@ class SubredditActivity : AppCompatActivity() {
 
             val headerImg = findViewById<ImageView>(R.id.subredit_img_header)
             var bannerUrl = it.data.banner_background_image
-            bannerUrl = bannerUrl?.replace("&amp;", "&")
-            Glide.with(this).load(bannerUrl).into(headerImg)
+            if (bannerUrl.isNullOrEmpty()) {
+                var background = findViewById<TextView>(R.id.background)
+                background.visibility = View.VISIBLE
+                headerImg.visibility = View.INVISIBLE
+                if (!it.data.key_color.isNullOrEmpty()) {
+                    background.background = ColorDrawable(Color.parseColor(it.data.key_color))
+                } else if (!it.data.banner_background_color.isNullOrEmpty()) {
+                    background.background = ColorDrawable(Color.parseColor(it.data.banner_background_color))
+                } else if (!it.data.primary_color.isNullOrEmpty()) {
+                    background.background = ColorDrawable(Color.parseColor(it.data.primary_color))
+                }
+
+            } else {
+                bannerUrl = bannerUrl?.replace("&amp;", "&")
+                Glide.with(this).load(bannerUrl).into(headerImg)
+            }
+
 
             val iconImg = findViewById<ImageView>(R.id.community_icon)
-            var comunityIconUrl = it.data.community_icon
+            var comunityIconUrl = ""
+            if (subredditInfo.community_icon.toString().isNotEmpty()) {
+                comunityIconUrl = subredditInfo.community_icon.toString()
+            } else {
+                comunityIconUrl = subredditInfo.icon_img
+            }
             comunityIconUrl = comunityIconUrl?.replace("&amp;", "&")
             Glide.with(this).load(comunityIconUrl).into(iconImg)
 

@@ -1,6 +1,8 @@
 package my.epi.redditech.activity
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -113,10 +115,28 @@ class PostPageActivity : AppCompatActivity() {
         val iconImg = findViewById<ImageView>(R.id.community_icon)
 
         var bannerUrl = subredditInfo.banner_background_image
+        if (bannerUrl.isNullOrEmpty()) {
+            var background = findViewById<TextView>(R.id.background)
+            background.visibility = View.VISIBLE
+            headerImg.visibility = View.INVISIBLE
+            if (!subredditInfo.key_color.isNullOrEmpty()) {
+                background.background = ColorDrawable(Color.parseColor(subredditInfo.key_color))
+            } else if (!subredditInfo.banner_background_color.isNullOrEmpty()) {
+                background.background = ColorDrawable(Color.parseColor(subredditInfo.banner_background_color))
+            } else if (!subredditInfo.primary_color.isNullOrEmpty()) {
+                background.background = ColorDrawable(Color.parseColor(subredditInfo.primary_color))
+            }
+
+        }
         bannerUrl = bannerUrl?.replace("&amp;", "&")
         Glide.with(this).load(bannerUrl).into(headerImg)
 
-        var comunityIconUrl = subredditInfo.community_icon
+        var comunityIconUrl = ""
+        if (subredditInfo.community_icon.toString().isNotEmpty()) {
+            comunityIconUrl = subredditInfo.community_icon.toString()
+        } else {
+            comunityIconUrl = subredditInfo.icon_img
+        }
         comunityIconUrl = comunityIconUrl?.replace("&amp;", "&")
         Glide.with(this).load(comunityIconUrl).into(iconImg)
     }
