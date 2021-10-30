@@ -22,7 +22,7 @@ class AppRepository {
 
     // Subreddit home
     suspend fun getSubredditInfo(subreddit : String) = ApiClient.apiReddit.getSubredditInfo(subreddit)
-    suspend fun getSubredditPosts(subreddit: String, filter: String) = ApiClient.apiReddit.getSubredditPosts(subreddit, filter)
+    suspend fun getSubredditPosts(subreddit: String, filter: String, after: String) = ApiClient.apiReddit.getSubredditPosts(subreddit, filter, after)
 
     // Search
     suspend fun getSubredditList(filter: String) = ApiClient.apiReddit.getSubredditList(filter)

@@ -39,7 +39,7 @@ class SubredditViewModel constructor(private val appRepository:
 
     fun getSubredditPosts(subreddit: String, filter: String) {
         job = CoroutineScope(Dispatchers.IO).launch {
-            val response = appRepository.getSubredditPosts(subreddit, filter)
+            val response = appRepository.getSubredditPosts(subreddit, filter, after)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     subredditPosts.postValue(response.body())

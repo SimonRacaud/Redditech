@@ -31,7 +31,8 @@ interface ApiReddit {
     suspend fun getSubredditSearch(@Query("q") query: String): Response<ListModel<SubredditModel>>
 
     @GET("{subreddit}/{filter}")
-    suspend fun getSubredditPosts(@Path("subreddit") subreddit: String, @Path("filter") filter: String): Response<ListModel<PostModel>>
+    suspend fun getSubredditPosts(@Path("subreddit") subreddit: String, @Path("filter") filter: String,
+                                  @Query("after") after: String, @Query("limit") limit: String = "10"): Response<ListModel<PostModel>>
 
     @GET("api/subreddit_autocomplete_v2")
     suspend fun getSubredditSearch(@Query("query") query: String,
