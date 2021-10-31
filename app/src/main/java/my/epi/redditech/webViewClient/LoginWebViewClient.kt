@@ -34,7 +34,7 @@ internal class LoginWebViewClient(val primaryUrl: String, val context: AuthActiv
         }
         // Extract auth token
         val codeParams = uri.getQueryParameters("code") ?: null
-        if (codeParams != null && codeParams[0] != null) {
+        if (codeParams != null && codeParams.size >= 1 && codeParams[0] != null) {
             code = codeParams[0]
         }
         if (code != "") {
