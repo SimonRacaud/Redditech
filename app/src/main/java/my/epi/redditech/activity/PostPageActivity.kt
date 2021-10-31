@@ -135,11 +135,13 @@ class PostPageActivity : AppCompatActivity() {
         var comunityIconUrl = ""
         if (subredditInfo.community_icon.toString().isNotEmpty()) {
             comunityIconUrl = subredditInfo.community_icon.toString()
-        } else {
+        } else if (subredditInfo.icon_img.isNotEmpty()) {
             comunityIconUrl = subredditInfo.icon_img
         }
-        comunityIconUrl = comunityIconUrl?.replace("&amp;", "&")
-        Glide.with(this).load(comunityIconUrl).into(iconImg)
+        if (comunityIconUrl.isNotEmpty()) {
+            comunityIconUrl = comunityIconUrl?.replace("&amp;", "&")
+            Glide.with(this).load(comunityIconUrl).into(iconImg)
+        }
     }
 
     /**

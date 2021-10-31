@@ -195,12 +195,16 @@ class SubredditActivity : AppCompatActivity() {
             val iconImg = findViewById<ImageView>(R.id.community_icon)
             var comunityIconUrl = ""
             if (subredditInfo.community_icon.toString().isNotEmpty()) {
+                Log.d("IMAGE_TRUC", "on load un truc " + subredditInfo.community_icon)
                 comunityIconUrl = subredditInfo.community_icon.toString()
-            } else {
+            } else if (subredditInfo.icon_img.isNotEmpty()) {
+                Log.d("IMAGE_TRUC", "on load un truc " + subredditInfo.icon_img)
                 comunityIconUrl = subredditInfo.icon_img
             }
-            comunityIconUrl = comunityIconUrl?.replace("&amp;", "&")
-            Glide.with(this).load(comunityIconUrl).into(iconImg)
+            if (comunityIconUrl.isNotEmpty()) {
+                comunityIconUrl = comunityIconUrl?.replace("&amp;", "&")
+                Glide.with(this).load(comunityIconUrl).into(iconImg)
+            }
 
             val nbSubscriber = findViewById<TextView>(R.id.header_nb_subscribers)
             nbSubscriber.text = Utils.getFormatNumber(it.data.subscribers)

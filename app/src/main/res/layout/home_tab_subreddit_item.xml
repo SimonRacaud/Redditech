@@ -20,7 +20,7 @@
             android:id="@+id/imageViewPostIcon"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            app:srcCompat="@drawable/reddit_icon_background" />
+            app:srcCompat="@mipmap/reddit_default_profile2" />
     </androidx.cardview.widget.CardView>
 
     <TextView

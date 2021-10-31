@@ -73,7 +73,8 @@
             android:id="@+id/community_icon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:srcCompat="@mipmap/reddit_default_profile2"
+            tools:srcCompat="@mipmap/reddit_default_profile2" />
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
