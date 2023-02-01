@@ -1,5 +1,10 @@
 # REDDITECH
 
+## Development requirements
+
+Android studio:
+[Install android studio](https://developer.android.com/studio/install)
+
 ## BUILD
 
 > ./gradlew build
